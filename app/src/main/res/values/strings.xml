@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GoCLayout</string>
+    <string name="button1_header_main">Your chances are...</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in rutrum urna, vel imperdiet lorem. Donec sed quam id justo dignissim tempor. Cras molestie diam non metus condimentum lobortis. Pellentesque nec lorem vitae leo tristique pretium quis vel nisi. Quisque pellentesque id est a sagittis.</string>
 </resources>
