@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">GoCLayout</string>
-    <string name="button1_header_main">Your chances are...</string>
+    <string name="button1_header_main">Your chances are…</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in rutrum urna, vel imperdiet lorem. Donec sed quam id justo dignissim tempor. Cras molestie diam non metus condimentum lobortis. Pellentesque nec lorem vitae leo tristique pretium quis vel nisi. Quisque pellentesque id est a sagittis.</string>
+
+    <!--Main menu-->
+    <string name="title1">Statistics data</string>
+    <string name="title2">Calculate probability</string>
+    <string name="title3">Help/About</string>
+    <string name="brief1">Probability from the world</string>
+    <string name="brief2">Get precise probabilities of events</string>
+    <string name="brief3">Learn probability theory, get knowledge</string>
+    <string name="full1">Here you will find probabilities of random events which occur in our world very often.</string>
+    <string name="full2">You are now able to solve main probability theory problems just in seconds! Wow!</string>
+    <string name="full3">Are you curious or just confused with the app? Here you go then! Learn more about probability theory and the app.</string>
+
 </resources>
