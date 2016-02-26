@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 	TextView brief1, brief2, brief3;
 	CardView card1, card2, card3;
 	int expanded = 1;
+	int[][] cardHeight = new int[3][2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +42,43 @@ public class MainActivity extends AppCompatActivity {
 		    card2 = (CardView) findViewById(R.id.card_view2);
 		    card3 = (CardView) findViewById(R.id.card_view3);
 
-		    final int[][] scales = {{full1.getMeasuredHeight(), full2.getMeasuredHeight(), full3.getMeasuredHeight()},
-				    {brief1.getMeasuredHeight(), brief2.getMeasuredHeight(), brief3.getMeasuredHeight()},
-				    {card1.getMeasuredHeight(), card2.getMeasuredHeight(), card3.getMeasuredHeight()}};
+		    //Full (0 index), Brief (1 index) heights
+		    final int[][] textHeight = {
+				    {full1.getLayout().getHeight(), full2.getLayout().getHeight(), full3.getLayout().getHeight()},
+				    {brief1.getLayout().getHeight(), brief2.getLayout().getHeight(), brief3.getLayout().getHeight()}
+		    };
 
-		    //Default view
-		    full1.setVisibility(View.VISIBLE);
-		    full2.setVisibility(View.GONE);
-		    full3.setVisibility(View.GONE);
-		    brief1.setVisibility(View.GONE);
-		    brief2.setVisibility(View.VISIBLE);
-		    brief3.setVisibility(View.VISIBLE);
-		    //changeState(full1, brief1);
-		    //changeState(brief2, full2);
-		    //changeState(brief3, full3);
+		    for (int i = 0; i < 2; i++) {
+			    for (int j = 0; j < 3; j++) {
+				    Log.d(UI_MODE_SERVICE, "Height " + i + j + ": " + textHeight[i][j]);
+			    }
+		    }
+
+//		    //Put cards' heights to array
+//		    //Only brief descriptions visible
+//		    full1.setVisibility(View.GONE);
+//		    full2.setVisibility(View.GONE);
+//		    full3.setVisibility(View.GONE);
+//
+//		    cardHeight[0][0] = card1.getLayoutParams().height;
+//		    cardHeight[0][1] = card2.getLayoutParams().height;
+//		    cardHeight[0][2] = card3.getLayoutParams().height;
+//
+//		    //Get cards' heights when only full description is visible
+//		    full1.setVisibility(View.VISIBLE);
+//		    full2.setVisibility(View.VISIBLE);
+//		    full3.setVisibility(View.VISIBLE);
+//		    brief1.setVisibility(View.GONE);
+//		    brief2.setVisibility(View.GONE);
+//		    brief3.setVisibility(View.GONE);
+//
+//		    cardHeight[1][0] = card1.getLayoutParams().height;
+//		    cardHeight[1][1] = card2.getLayoutParams().height;
+//		    cardHeight[1][2] = card3.getLayoutParams().height;
+
+		    changeState(full1, textHeight[0][0], brief1);
+		    changeState(brief2, textHeight[1][1], full2);
+		    changeState(brief3, textHeight[1][2], full3);
 
 		    //Expand first
 		    arrow1.setOnClickListener(new View.OnClickListener() {
@@ -63,15 +87,15 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 1) {
 					    //Collapse currently expanded card
 					    if (expanded == 2) {
-						    //changeState(brief2, full2);
+						    changeState(brief2, textHeight[1][1], full2);
 					    } else {
-						    //changeState(brief3, full3);
+						    changeState(brief3, textHeight[1][2], full3);
 					    }
 					    expanded = 1;
 					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
 					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
 					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    //changeState(full1, brief1);
+					    changeState(full1, textHeight[0][0], brief1);
 				    }
 			    }
 		    });
@@ -83,15 +107,15 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 2) {
 					    //Collapse currently expanded card
 					    if (expanded == 1) {
-						    //changeState(brief1, full1);
+						    changeState(brief1, textHeight[1][0], full1);
 					    } else {
-						    //changeState(brief3, full3);
+						    changeState(brief3, textHeight[1][2], full3);
 					    }
 					    expanded = 2;
 					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
 					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
 					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    //changeState(full2, brief2);
+					    changeState(full2, textHeight[0][1], brief2);
 				    }
 			    }
 		    });
@@ -103,24 +127,24 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 3) {
 					    //Collapse currently expanded card
 					    if (expanded == 1) {
-						    //changeState(brief1, full1);
+						    changeState(brief1, textHeight[1][0], full1);
 					    } else {
-						    //changeState(brief2, full2);
+						    changeState(brief2, textHeight[1][1], full2);
 					    }
 					    expanded = 3;
 					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
 					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
 					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
-					    //changeState(full2, brief2);
+					    changeState(full3, textHeight[0][2], brief3);
 				    }
 			    }
 		    });
 
 	    }
-
     }
 
 	public void changeState (final View expand, final int targetHeight ,final View collapse) {
+		
 		final int currentHeight = collapse.getMeasuredHeight();
 
 		expand.getLayoutParams().height = 1;
@@ -139,13 +163,10 @@ public class MainActivity extends AppCompatActivity {
 				}
 				else {
 					expand.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
+					expand.requestLayout();
 				}
-				expand.requestLayout();
 			}
 		};
-
-		exp.setInterpolator(new AccelerateDecelerateInterpolator());
-		exp.setDuration(500);
 
 		Animation col = new Animation() {
 			@Override
@@ -164,8 +185,10 @@ public class MainActivity extends AppCompatActivity {
 			}
 		};
 
-		col.setDuration(500);
+		exp.setInterpolator(new AccelerateDecelerateInterpolator());
 		col.setInterpolator(new AccelerateDecelerateInterpolator());
+		exp.setDuration(targetHeight * 10);
+		col.setDuration(currentHeight * 10);
 
 		collapse.startAnimation(col);
 		expand.startAnimation(exp);
