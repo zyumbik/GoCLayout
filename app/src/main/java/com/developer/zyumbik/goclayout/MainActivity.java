@@ -18,9 +18,7 @@ public class MainActivity extends AppCompatActivity {
 	ImageButton arrow1, arrow2, arrow3;
 	TextView full1, full2, full3;
 	TextView brief1, brief2, brief3;
-	CardView card1, card2, card3;
 	int expanded = 1;
-	int[][] cardHeight = new int[3][2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,54 +36,12 @@ public class MainActivity extends AppCompatActivity {
 		    brief1 = (TextView) findViewById(R.id.brief_description1);
 		    brief2 = (TextView) findViewById(R.id.brief_description2);
 		    brief3 = (TextView) findViewById(R.id.brief_description3);
-		    card1 = (CardView) findViewById(R.id.card_view1);
-		    card2 = (CardView) findViewById(R.id.card_view2);
-		    card3 = (CardView) findViewById(R.id.card_view3);
 
-		    //Full (0 index), Brief (1 index) heights
-		    full1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		    full2.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		    full3.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		    brief1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		    brief2.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		    brief3.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-		    final int[][] textHeight = {
-				    {full1.getMeasuredHeight(), full2.getMeasuredHeight(), full3.getMeasuredHeight()},
-				    {brief1.getMeasuredHeight(), brief2.getMeasuredHeight(), brief3.getMeasuredHeight()}
-		    };
-
-		    for (int i = 0; i < 2; i++) {
-			    for (int j = 0; j < 3; j++) {
-				    Log.d(UI_MODE_SERVICE, "Height " + i + j + ": " + textHeight[i][j]);
-			    }
-		    }
-
-//		    //Put cards' heights to array
-//		    //Only brief descriptions visible
-//		    full1.setVisibility(View.GONE);
-//		    full2.setVisibility(View.GONE);
-//		    full3.setVisibility(View.GONE);
-//
-//		    cardHeight[0][0] = card1.getLayoutParams().height;
-//		    cardHeight[0][1] = card2.getLayoutParams().height;
-//		    cardHeight[0][2] = card3.getLayoutParams().height;
-//
-//		    //Get cards' heights when only full description is visible
-//		    full1.setVisibility(View.VISIBLE);
-//		    full2.setVisibility(View.VISIBLE);
-//		    full3.setVisibility(View.VISIBLE);
-//		    brief1.setVisibility(View.GONE);
-//		    brief2.setVisibility(View.GONE);
-//		    brief3.setVisibility(View.GONE);
-//
-//		    cardHeight[1][0] = card1.getLayoutParams().height;
-//		    cardHeight[1][1] = card2.getLayoutParams().height;
-//		    cardHeight[1][2] = card3.getLayoutParams().height;
-
-		    changeState(full1, textHeight[0][0], brief1);
-		    changeState(brief2, textHeight[1][1], full2);
-		    changeState(brief3, textHeight[1][2], full3);
+		    changeState(full1, brief1);
+		    changeState(brief2, full2);
+		    flip(arrow2);
+		    changeState(brief3, full3);
+		    flip(arrow3);
 
 		    //Expand first
 		    arrow1.setOnClickListener(new View.OnClickListener() {
@@ -94,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 1) {
 					    //Collapse currently expanded card
 					    if (expanded == 2) {
-						    changeState(brief2, textHeight[1][1], full2);
+						    changeState(brief2, full2);
+						    flip(arrow2);
 					    } else {
-						    changeState(brief3, textHeight[1][2], full3);
+						    changeState(brief3, full3);
+						    flip(arrow3);
 					    }
 					    expanded = 1;
-					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
-					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    changeState(full1, textHeight[0][0], brief1);
+					    changeState(full1, brief1);
+					    flip(arrow1);
 				    }
 			    }
 		    });
@@ -114,15 +70,15 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 2) {
 					    //Collapse currently expanded card
 					    if (expanded == 1) {
-						    changeState(brief1, textHeight[1][0], full1);
+						    changeState(brief1, full1);
+						    flip(arrow1);
 					    } else {
-						    changeState(brief3, textHeight[1][2], full3);
+						    changeState(brief3, full3);
+						    flip(arrow3);
 					    }
 					    expanded = 2;
-					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
-					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    changeState(full2, textHeight[0][1], brief2);
+					    changeState(full2, brief2);
+					    flip(arrow2);
 				    }
 			    }
 		    });
@@ -134,15 +90,15 @@ public class MainActivity extends AppCompatActivity {
 				    if (expanded != 3) {
 					    //Collapse currently expanded card
 					    if (expanded == 1) {
-						    changeState(brief1, textHeight[1][0], full1);
+						    changeState(brief1, full1);
+						    flip(arrow1);
 					    } else {
-						    changeState(brief2, textHeight[1][1], full2);
+						    changeState(brief2, full2);
+						    flip(arrow2);
 					    }
 					    expanded = 3;
-					    arrow1.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    arrow2.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24dp);
-					    arrow3.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24dp);
-					    changeState(full3, textHeight[0][2], brief3);
+					    changeState(full3, brief3);
+					    flip(arrow3);
 				    }
 			    }
 		    });
@@ -150,64 +106,13 @@ public class MainActivity extends AppCompatActivity {
 	    }
     }
 
-	public void changeState (final View expand, final int targetHeight ,final View collapse) {
-//
-//			final int currentHeight = collapse.getMeasuredHeight();
-//
-//			expand.getLayoutParams().height = 1;
-//			expand.setVisibility(View.VISIBLE);
-//
-//			Animation exp = new Animation() {
-//				@Override
-//				public boolean willChangeBounds() {
-//					return true;
-//				}
-//
-//				@Override
-//				protected void applyTransformation(float interpolatedTime, Transformation t) {
-//					if (interpolatedTime == 1) {
-//						expand.getLayoutParams().height = FrameLayout.LayoutParams.WRAP_CONTENT;
-//					}
-//					else {
-//						expand.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
-//						expand.requestLayout();
-//					}
-//				}
-//			};
-//
-//			Animation col = new Animation() {
-//				@Override
-//				public boolean willChangeBounds() {
-//					return true;
-//				}
-//
-//				@Override
-//				protected void applyTransformation(float interpolatedTime, Transformation t) {
-//					if (interpolatedTime == 1) {
-//						collapse.setVisibility(View.GONE);
-//					} else {
-//						collapse.getLayoutParams().height = (int) (currentHeight * (1 - interpolatedTime));
-//						collapse.requestLayout();
-//					}
-//				}
-//		};
-//
-//		exp.setInterpolator(new AccelerateDecelerateInterpolator());
-//		col.setInterpolator(new AccelerateDecelerateInterpolator());
-//		exp.setDuration(targetHeight * 10);
-//		col.setDuration(currentHeight * 10);
-//
-//		collapse.startAnimation(col);
-//		expand.startAnimation(exp);
+	public void changeState (final View expand, final View collapse) {
+		expand.setVisibility(View.VISIBLE);
+		collapse.setVisibility(View.GONE);
+	}
 
-		expand.setPivotY(0);
-		expand.animate().setInterpolator(new AccelerateDecelerateInterpolator()).scaleY(1).start();
-		expand.requestLayout();
-
-		collapse.setPivotY(0);
-		collapse.animate().setInterpolator(new AccelerateDecelerateInterpolator()).scaleY(0).start();
-		collapse.requestLayout();
-
+	public void flip(final View arrow) {
+		arrow.animate().rotationBy(180).start();
 	}
 
 }
