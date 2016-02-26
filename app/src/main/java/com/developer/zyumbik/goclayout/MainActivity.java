@@ -43,9 +43,16 @@ public class MainActivity extends AppCompatActivity {
 		    card3 = (CardView) findViewById(R.id.card_view3);
 
 		    //Full (0 index), Brief (1 index) heights
+		    full1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		    full2.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		    full3.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		    brief1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		    brief2.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		    brief3.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
 		    final int[][] textHeight = {
-				    {full1.getLayout().getHeight(), full2.getLayout().getHeight(), full3.getLayout().getHeight()},
-				    {brief1.getLayout().getHeight(), brief2.getLayout().getHeight(), brief3.getLayout().getHeight()}
+				    {full1.getMeasuredHeight(), full2.getMeasuredHeight(), full3.getMeasuredHeight()},
+				    {brief1.getMeasuredHeight(), brief2.getMeasuredHeight(), brief3.getMeasuredHeight()}
 		    };
 
 		    for (int i = 0; i < 2; i++) {
@@ -144,54 +151,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
 	public void changeState (final View expand, final int targetHeight ,final View collapse) {
-		
-		final int currentHeight = collapse.getMeasuredHeight();
+//
+//			final int currentHeight = collapse.getMeasuredHeight();
+//
+//			expand.getLayoutParams().height = 1;
+//			expand.setVisibility(View.VISIBLE);
+//
+//			Animation exp = new Animation() {
+//				@Override
+//				public boolean willChangeBounds() {
+//					return true;
+//				}
+//
+//				@Override
+//				protected void applyTransformation(float interpolatedTime, Transformation t) {
+//					if (interpolatedTime == 1) {
+//						expand.getLayoutParams().height = FrameLayout.LayoutParams.WRAP_CONTENT;
+//					}
+//					else {
+//						expand.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
+//						expand.requestLayout();
+//					}
+//				}
+//			};
+//
+//			Animation col = new Animation() {
+//				@Override
+//				public boolean willChangeBounds() {
+//					return true;
+//				}
+//
+//				@Override
+//				protected void applyTransformation(float interpolatedTime, Transformation t) {
+//					if (interpolatedTime == 1) {
+//						collapse.setVisibility(View.GONE);
+//					} else {
+//						collapse.getLayoutParams().height = (int) (currentHeight * (1 - interpolatedTime));
+//						collapse.requestLayout();
+//					}
+//				}
+//		};
+//
+//		exp.setInterpolator(new AccelerateDecelerateInterpolator());
+//		col.setInterpolator(new AccelerateDecelerateInterpolator());
+//		exp.setDuration(targetHeight * 10);
+//		col.setDuration(currentHeight * 10);
+//
+//		collapse.startAnimation(col);
+//		expand.startAnimation(exp);
 
-		expand.getLayoutParams().height = 1;
-		expand.setVisibility(View.VISIBLE);
+		expand.setPivotY(0);
+		expand.animate().setInterpolator(new AccelerateDecelerateInterpolator()).scaleY(1).start();
+		expand.requestLayout();
 
-		Animation exp = new Animation() {
-			@Override
-			public boolean willChangeBounds() {
-				return true;
-			}
+		collapse.setPivotY(0);
+		collapse.animate().setInterpolator(new AccelerateDecelerateInterpolator()).scaleY(0).start();
+		collapse.requestLayout();
 
-			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
-				if (interpolatedTime == 1) {
-					expand.getLayoutParams().height = FrameLayout.LayoutParams.WRAP_CONTENT;
-				}
-				else {
-					expand.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
-					expand.requestLayout();
-				}
-			}
-		};
-
-		Animation col = new Animation() {
-			@Override
-			public boolean willChangeBounds() {
-				return true;
-			}
-
-			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
-				if (interpolatedTime == 1) {
-					collapse.setVisibility(View.GONE);
-				} else {
-					collapse.getLayoutParams().height = (int) (currentHeight * (1 - interpolatedTime));
-					collapse.requestLayout();
-				}
-			}
-		};
-
-		exp.setInterpolator(new AccelerateDecelerateInterpolator());
-		col.setInterpolator(new AccelerateDecelerateInterpolator());
-		exp.setDuration(targetHeight * 10);
-		col.setDuration(currentHeight * 10);
-
-		collapse.startAnimation(col);
-		expand.startAnimation(exp);
 	}
 
 }
