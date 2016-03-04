@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity {
 
 	ImageButton arrow1, arrow2, arrow3;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 	    if (!new View(this).isInEditMode()) {
+
+//		    Firebase.setAndroidContext(this);
 
 		    arrow1 = (ImageButton) findViewById(R.id.arrow1);
 		    arrow2 = (ImageButton) findViewById(R.id.arrow2);
@@ -64,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
 						    card1.animate().z(8).withEndAction(new Runnable() {
 							    @Override
 							    public void run() {
-								    card1.animate().z(2).start();
+								    if (Build.VERSION.SDK_INT > 20)
+									    card1.animate().z(2).start();
 							    }
 						    }).start();
 					    }
@@ -92,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
 						    card2.animate().z(8).withEndAction(new Runnable() {
 							    @Override
 							    public void run() {
-								    card2.animate().z(2).start();
+								    if (Build.VERSION.SDK_INT > 20)
+									    card2.animate().z(2).start();
 							    }
 						    }).start();
 					    }
@@ -120,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
 						    card3.animate().z(8).withEndAction(new Runnable() {
 							    @Override
 							    public void run() {
-								    card3.animate().z(2).start();
+								    // TODO: remove unnecessary version check 
+								    if (Build.VERSION.SDK_INT > 20)
+									    card3.animate().z(2).start();
 							    }
 						    }).start();
 					    }
