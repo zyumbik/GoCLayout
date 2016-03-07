@@ -1,6 +1,6 @@
 package com.developer.zyumbik.goclayout;
 
-import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -137,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 			    }
 		    });
 
+		    // Random events
 		    card1.setOnTouchListener(new View.OnTouchListener() {
 			    @Override
 			    public boolean onTouch(View v, MotionEvent event) {
@@ -156,13 +156,21 @@ public class MainActivity extends AppCompatActivity {
 			    }
 		    });
 
+		    // Calculator
 		    card2.setOnTouchListener(new View.OnTouchListener() {
 			    @Override
 			    public boolean onTouch(View v, MotionEvent event) {
 				    switch (event.getAction()) {
 					    case MotionEvent.ACTION_DOWN:
 						    if (Build.VERSION.SDK_INT > 20) {
-							    card2.animate().z(8).start();
+							    card2.animate().z(8).withEndAction(new Runnable() {
+								    @Override
+								    public void run() {
+									    Intent i = new Intent(MainActivity.this, Calculator.class);
+									    startActivity(i);
+									    finish();
+								    }
+							    }).start();
 						    }
 						    break;
 					    case MotionEvent.ACTION_UP:
@@ -175,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 			    }
 		    });
 
+		    // Help/About/FAQ
 		    card3.setOnTouchListener(new View.OnTouchListener() {
 			    @Override
 			    public boolean onTouch(View v, MotionEvent event) {

@@ -13,5 +13,7 @@
     <string name="full1">Here you will find probabilities of random events which occur in our world very often.</string>
     <string name="full2">You are now able to solve main probability theory problems just in seconds! Wow!</string>
     <string name="full3">Are you curious or just confused with the app? Here you go then! Learn more about probability theory and the app.</string>
+    <string name="btnShare">Share</string>
+    <string name="rndGenerator">Random generator</string>
 
 </resources>
