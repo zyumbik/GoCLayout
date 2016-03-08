@@ -1,5 +1,6 @@
 package com.developer.zyumbik.goclayout;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +12,9 @@ public class Calculator extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculator);
-		Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+		Toolbar myToolbar = (Toolbar) findViewById(R.id.calculator_toolbar);
 		setSupportActionBar(myToolbar);
+		myToolbar.setTitle("Probability calculator");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
