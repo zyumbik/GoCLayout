@@ -32,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="none"
                 app:elevation="4dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -53,14 +52,16 @@
                         android:id="@+id/lNameLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:theme="@style/TextLabel">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/ltitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text_body"
-                            android:hint="@string/calculator_menu_outcomes"/>
+                            android:hint="@string/calculator_menu_outcomes"
+                            android:inputType="number"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -68,14 +69,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:theme="@style/TextLabel">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/ldesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text_body"
-                            android:hint="@string/calculator_menu_events"/>
+                            android:hint="@string/calculator_menu_events"
+                            android:inputType="number"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <CheckBox
@@ -93,6 +96,5 @@
 
 
         </android.support.design.widget.AppBarLayout>
-
 
     </android.support.design.widget.CoordinatorLayout>
