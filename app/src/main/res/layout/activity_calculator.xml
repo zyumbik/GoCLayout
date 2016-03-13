@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.developer.zyumbik.goclayout.Calculator"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.developer.zyumbik.goclayout.Calculator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/layout_input_calculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="56dp"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
+        android:background="#e5ffff">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="0dp">
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextLabel">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/calculator_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="none"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-            </android.support.v7.widget.Toolbar>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/calculator_toolbar_main"
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/inputOutcomes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                app:layout_collapseMode="none"
-                app:elevation="4dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                android:textSize="@dimen/text_body"
+                android:hint="@string/calculator_menu_outcomes"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="32dp"
-                    android:paddingStart="32dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="56dp"
-                    android:paddingRight="16dp"
-                    android:paddingEnd="16dp">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:theme="@style/TextLabel">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/lNameLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:theme="@style/TextLabel">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/inputEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                android:hint="@string/calculator_menu_events"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/ltitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_body"
-                            android:hint="@string/calculator_menu_outcomes"
-                            android:inputType="number"/>
-                    </android.support.design.widget.TextInputLayout>
+        <CheckBox
+            android:text="@string/calculator_menu_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/text_body"/>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/lNameLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:theme="@style/TextLabel">
+    </LinearLayout>
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/ldesc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_body"
-                            android:hint="@string/calculator_menu_events"
-                            android:inputType="number"/>
-                    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddProbability"
+        app:fabSize="normal"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/ic_add_24dp"
+        android:clickable="true"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/layout_input_calculator"
+        app:layout_anchorGravity="bottom|right|end"/>
 
-                    <CheckBox
-                        android:text="@string/calculator_menu_checkbox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textSize="@dimen/text_body"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.Toolbar>
-
-            <!-- Content below action bar goes here -->
-
-
-        </android.support.design.widget.AppBarLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

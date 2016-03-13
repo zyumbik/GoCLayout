@@ -12,10 +12,10 @@ public class Calculator extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculator);
-		Toolbar myToolbar = (Toolbar) findViewById(R.id.calculator_toolbar);
-		setSupportActionBar(myToolbar);
-		myToolbar.setTitle("Probability calculator");
+		Toolbar toolbar = (Toolbar) findViewById(R.id.calculator_toolbar);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		toolbar.setTitle("Probability calculator");
 	}
 
 	@Override
