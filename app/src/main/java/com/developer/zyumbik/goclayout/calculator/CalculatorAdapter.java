@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.R;
@@ -19,31 +19,36 @@ import java.util.ArrayList;
 public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.ViewHolder> {
 
 	private ArrayList<Probability> list;
+	private static int typeOfData = 0, maxIndex = 0;
 
 	public void addProbability(int outcomes, int events) {
-		list.add(new Probability(list.size() - 1, outcomes, events));
+		// TODO: put a restriction on adding new elements
+		if (maxIndex < 27) {
+			list.add(new Probability(maxIndex++, outcomes, events));
+
+			// TODO: implement smooth animation
+			notifyDataSetChanged();
+		}
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-		// each data item is just a string in this case
-		public TextView textView;
+
+		public TextView textValue;
+		public TextView textIndex;
 		public CheckBox checkBox;
 		public ImageButton removeButton;
+		public RelativeLayout layout;
 
 		public ViewHolder(View v) {
-
 			super(v);
-			textView = (TextView) v.findViewById(R.id.calcListText);
+			textValue = (TextView) v.findViewById(R.id.calcListValue);
+			textIndex = (TextView) v.findViewById(R.id.calcListIndex);
 			checkBox = (CheckBox) v.findViewById(R.id.calcListCheckbox);
 			removeButton = (ImageButton) v.findViewById(R.id.calcListButtonRemove);
+			layout = (RelativeLayout) v.findViewById(R.id.calcListLayout);
 
-			removeButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-					getAdapterPosition();
-				}
-			});
+			removeButton.setOnClickListener(this);
+			layout.setOnClickListener(this);
 
 			checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 				@Override
@@ -53,10 +58,22 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 			});
 		}
 
+		private void changeTypeOfData() {
+			if (typeOfData != 2) {
+				typeOfData++;
+			} else {
+				typeOfData = 0;
+			}
+		}
+
 		@Override
 		public void onClick(View v) {
 			if (v.equals(removeButton)) {
 				removeAt(getAdapterPosition());
+			} else {
+				changeTypeOfData();
+//				notifyItemChanged(getAdapterPosition());
+				notifyDataSetChanged();
 			}
 		}
 
@@ -64,12 +81,15 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 
 	private void removeAt(int position) {
 		list.remove(position);
-		notifyItemRemoved(position);
-		notifyItemRangeChanged(position, list.size());
+//		notifyItemRemoved(position);
+//		notifyItemRangeChanged(position, list.size());
+
+		// TODO: implement smooth animation
+		notifyDataSetChanged();
 	}
 
 	public CalculatorAdapter() {
-		list = new ArrayList<>(26);
+		this.list = new ArrayList<>();
 	}
 
 	@Override
@@ -79,15 +99,24 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 		View v =  LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.calculator_list_item, parent, false);
 
-		// set the view's size, margins, paddings and layout parameters
-
 		ViewHolder vh = new ViewHolder(v);
 		return vh;
 	}
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-		holder.textView.setText(list.get(position).getDouble());
+		holder.textIndex.setText(list.get(position).getIndex());
+		switch (typeOfData) {
+			case 1:
+				holder.textValue.setText(list.get(position).getDouble());
+				break;
+			case 0:
+				holder.textValue.setText(list.get(position).getPercent());
+				break;
+			default:
+				holder.textValue.setText(list.get(position).getFraction());
+				break;
+		}
 	}
 
 	@Override

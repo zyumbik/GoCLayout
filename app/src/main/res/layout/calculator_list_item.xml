@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/calcListLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -25,8 +26,7 @@
         android:background="#00000000"
         android:contentDescription="@string/remove_item"/>
 
-    <TextView
-        android:id="@+id/calcListText"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -36,6 +36,27 @@
         android:layout_toStartOf="@id/calcListButtonRemove"
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
-        android:maxLength="25"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/calcListIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="5"/>
+
+        <TextView
+            android:id="@+id/calcListSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/calcListSeparator"/>
+
+        <TextView
+            android:id="@+id/calcListValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="20"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

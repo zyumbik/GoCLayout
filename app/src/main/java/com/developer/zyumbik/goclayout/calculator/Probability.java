@@ -5,13 +5,28 @@ import java.text.DecimalFormat;
 /** Created by glebsabirzanov on 23/03/16. */
 public class Probability {
 
-	private int outcomes, events, index;
-	private static final int[] indexes = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+	private int outcomes, events;
+	private char index;
+	private static final char[] indexes = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 	public Probability(int index, int outcomes, int events) {
 		this.outcomes = outcomes;
 		this.events = events;
-		this.index = index;
+		this.index = indexes[index];
+//		newIndex(index);
+	}
+
+	// Generate alphabetic indexes with overflow
+//	private void newIndex(int index) {
+//		StringBuffer sb = new StringBuffer();
+//		for (int i = 0; i < (index / indexes.length) + 1; i++) {
+//			sb.append((char)indexes[index % indexes.length]);
+//		}
+//		this.index = sb.toString();
+//	}
+
+	public char getIndex() {
+		return this.index;
 	}
 
 	private float getValue() {
@@ -19,11 +34,15 @@ public class Probability {
 	}
 
 	public String getPercent() {
-		return indexes[index] + ": " + new DecimalFormat("%#.##").format(getValue());
+		return new DecimalFormat("#.##%").format(getValue());
 	}
 
 	public String getDouble() {
-		return indexes[index] + ": " + new DecimalFormat("0.##").format(getValue());
+		return new DecimalFormat("0.##").format(getValue());
+	}
+
+	public String getFraction() {
+		return outcomes + "/" + events ;
 	}
 
 }

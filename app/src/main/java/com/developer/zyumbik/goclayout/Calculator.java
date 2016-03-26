@@ -12,34 +12,39 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.calculator.CalculatorAdapter;
+import com.developer.zyumbik.goclayout.calculator.Probability;
+
+import java.util.ArrayList;
 
 public class Calculator extends AppCompatActivity {
 
 	FloatingActionButton floatingActionButton;
 	EditText etOutcomes, etEvents;
-	private CalculatorAdapter adapter;
+	private RecyclerView.Adapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculator);
+
+		// Toolbar setting up
 		Toolbar toolbar = (Toolbar) findViewById(R.id.calculator_toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		toolbar.setTitle("Probability calculator");
 
-		// Scrolling list of probabilities
-		final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.calcRecyclerProbabilities);
-		recyclerView.setHasFixedSize(true);
-		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-		recyclerView.setLayoutManager(layoutManager);
-		adapter = new CalculatorAdapter();
-		recyclerView.setAdapter(adapter);
-
+		// Initializing all views
 		floatingActionButton = (FloatingActionButton) findViewById(R.id.fabAddProbability);
 		etEvents = (EditText) findViewById(R.id.inputEvents);
 		etOutcomes = (EditText) findViewById(R.id.inputOutcomes);
 
+		// Scrolling list of probabilities
+		final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.calcRecyclerProbabilities);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+		adapter = new CalculatorAdapter();
+		recyclerView.setAdapter(adapter);
+
+		// Adding new elements to the list
 		floatingActionButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -49,17 +54,16 @@ public class Calculator extends AppCompatActivity {
 					if (events > outcomes) {
 						Toast.makeText(Calculator.this, "You can't have more events than outcomes", Toast.LENGTH_LONG).show();
 					} else {
-						adapter.addProbability(outcomes, events);
-						adapter.notifyItemInserted(adapter.getItemCount() - 1);
+						((CalculatorAdapter)adapter).addProbability(outcomes, events);
 					}
 				} catch (NumberFormatException e) {
 					Toast.makeText(Calculator.this, "Can't parse the number", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
-
-
 	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

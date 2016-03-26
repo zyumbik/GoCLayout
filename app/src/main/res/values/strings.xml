@@ -115,5 +115,6 @@
     <string name="action_settings">Settings</string>
     <string name="remove_item">Remove item</string>
     <string name="calc_list_probabilities_header">Event probabilities</string>
+    <string name="calcListSeparator">:</string>
 
 </resources>
