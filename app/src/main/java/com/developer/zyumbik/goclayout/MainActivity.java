@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		    card2 = (CardView) findViewById(R.id.card_view2);
 		    card3 = (CardView) findViewById(R.id.card_view3);
 
-		    // Default view
+		    // Default state
 		    changeState(full1, brief1);
 		    changeState(brief2, full2);
 		    flip(arrow2);
