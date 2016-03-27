@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 	ImageButton arrow1, arrow2, arrow3;
 	TextView full1, full2, full3;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 	    if (!new View(this).isInEditMode()) {
 
-//		    Firebase.setAndroidContext(this);
+		    Firebase.setAndroidContext(this);
 
 		    arrow1 = (ImageButton) findViewById(R.id.arrow1);
 		    arrow2 = (ImageButton) findViewById(R.id.arrow2);
@@ -136,72 +138,9 @@ public class MainActivity extends AppCompatActivity {
 			    }
 		    });
 
-		    // Random events
-		    card1.setOnTouchListener(new View.OnTouchListener() {
-			    @Override
-			    public boolean onTouch(View v, MotionEvent event) {
-				    switch (event.getAction()) {
-					    case MotionEvent.ACTION_DOWN:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card1.animate().z(8).start();
-						    }
-						    break;
-					    case MotionEvent.ACTION_UP:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card1.animate().z(2).start();
-						    }
-						    break;
-				    }
-				    return false;
-			    }
-		    });
-
-		    // Calculator
-		    card2.setOnTouchListener(new View.OnTouchListener() {
-			    @Override
-			    public boolean onTouch(View v, MotionEvent event) {
-				    switch (event.getAction()) {
-					    case MotionEvent.ACTION_DOWN:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card2.animate().z(8).withEndAction(new Runnable() {
-								    @Override
-								    public void run() {
-									    Intent i = new Intent(MainActivity.this, Calculator.class);
-									    startActivity(i);
-								    }
-							    }).start();
-						    }
-						    break;
-					    case MotionEvent.ACTION_UP:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card2.animate().z(2).start();
-						    }
-						    break;
-				    }
-				    return false;
-			    }
-		    });
-
-		    // Help/About/FAQ
-		    card3.setOnTouchListener(new View.OnTouchListener() {
-			    @Override
-			    public boolean onTouch(View v, MotionEvent event) {
-				    switch (event.getAction()) {
-					    case MotionEvent.ACTION_DOWN:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card3.animate().z(8).start();
-						    }
-						    break;
-					    case MotionEvent.ACTION_UP:
-						    if (Build.VERSION.SDK_INT > 20) {
-							    card3.animate().z(2).start();
-						    }
-						    break;
-				    }
-				    return false;
-			    }
-		    });
-
+		    card1.setOnClickListener(this);
+		    card2.setOnClickListener(this);
+		    card3.setOnClickListener(this);
 	    }
     }
 
@@ -214,4 +153,37 @@ public class MainActivity extends AppCompatActivity {
 		arrow.animate().rotationBy(180).start();
 	}
 
+	@Override
+	public void onClick(View v) {
+		if (v.equals(card1)) {
+			if (Build.VERSION.SDK_INT > 20) {
+				card1.animate().z(8).start();
+			}
+		}
+
+		// Calculator
+		if(v.equals(card2)) {
+			if (Build.VERSION.SDK_INT > 20) {
+				card2.animate().z(8).withEndAction(new Runnable() {
+					@Override
+					public void run() {
+						Intent i = new Intent(MainActivity.this, Calculator.class);
+						startActivity(i);
+					}
+				}).start();
+			} else {
+				Intent i = new Intent(MainActivity.this, Calculator.class);
+				startActivity(i);
+			}
+			return;
+		}
+
+		// Help/FAQ/About/Learn
+		if (v.equals(card3)) {
+			if (Build.VERSION.SDK_INT > 20) {
+				card3.animate().z(8).start();
+			 }
+		}
+
+	}
 }
