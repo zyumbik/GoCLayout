@@ -116,5 +116,8 @@
     <string name="remove_item">Remove item</string>
     <string name="calc_list_probabilities_header">Event probabilities</string>
     <string name="calcListSeparator">:</string>
+    <string name="title_activity_random_events">Random events</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="add_probability_action">Add</string>
 
 </resources>
