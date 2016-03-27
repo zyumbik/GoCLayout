@@ -59,6 +59,7 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 		}
 
 		private void changeTypeOfData() {
+			// TODO: change to "Flip probability"
 			if (typeOfData != 2) {
 				typeOfData++;
 			} else {
