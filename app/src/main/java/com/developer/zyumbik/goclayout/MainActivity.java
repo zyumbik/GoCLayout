@@ -155,9 +155,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	@Override
 	public void onClick(View v) {
+		// Random events
 		if (v.equals(card1)) {
 			if (Build.VERSION.SDK_INT > 20) {
-				card1.animate().z(8).start();
+				card1.animate().z(8).withEndAction(new Runnable() {
+					@Override
+					public void run() {
+						Intent i = new Intent(MainActivity.this, RandomEvents.class);
+						startActivity(i);
+					}
+				}).start();
+			} else {
+				Intent i = new Intent(MainActivity.this, RandomEvents.class);
+				startActivity(i);
 			}
 		}
 

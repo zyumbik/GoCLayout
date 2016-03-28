@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:padding="@dimen/uRnd_list_item_padding"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/uRnd_list_item_header"
@@ -10,8 +10,17 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textColor="@color/textRegular"
-        android:textSize="8pt"
-        android:text="This is the random event probability"/>
+        android:textSize="8pt"/>
+
+    <TextView
+        android:id="@+id/uRnd_list_item_probability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12pt"
+        android:layout_below="@id/uRnd_list_item_header"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/uRnd_list_item_description"
@@ -23,18 +32,6 @@
         android:ellipsize="end"
         android:layout_below="@id/uRnd_list_item_header"
         android:layout_toLeftOf="@id/uRnd_list_item_probability"
-        android:layout_toStartOf="@id/uRnd_list_item_probability"
-        android:text="Here you will be able to see the probability of the random event"/>
-
-    <TextView
-        android:id="@+id/uRnd_list_item_probability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12pt"
-        android:layout_below="@id/uRnd_list_item_header"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/colorAccent"
-        android:text="56%"/>
+        android:layout_toStartOf="@id/uRnd_list_item_probability"/>
 
 </RelativeLayout>

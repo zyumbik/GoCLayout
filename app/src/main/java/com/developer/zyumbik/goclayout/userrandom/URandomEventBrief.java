@@ -24,11 +24,12 @@ public class URandomEventBrief {
 	}
 
 	public String getProbabilityInteger() {
-		return pplYes / (pplYes + pplNo) + "%";
+		return (pplYes * 100) / (pplYes + pplNo) + "%";
 	}
 
-	public String getProbabilityDouble() {
-		return new DecimalFormat("##.##%").format(pplYes / (double)(pplNo + pplYes));
+	public double getProbabilityDouble() {
+		// TODO: make it work better with repeating decimals
+		return Double.valueOf(new DecimalFormat("##.##").format(pplYes / (double)(pplNo + pplYes)));
 	}
 
 	public int getPplYes() {

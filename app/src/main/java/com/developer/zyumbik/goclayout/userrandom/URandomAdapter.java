@@ -24,13 +24,18 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 		this.listFull = listFull;
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
+	public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 		public TextView header, description, percentage;
 		public ViewHolder(View v) {
 			super(v);
 			header = (TextView) v.findViewById(R.id.uRnd_list_item_header);
 			percentage = (TextView) v.findViewById(R.id.uRnd_list_item_probability);
 			description = (TextView) v.findViewById(R.id.uRnd_list_item_description);
+		}
+
+		@Override
+		public void onClick(View v) {
+
 		}
 	}
 
