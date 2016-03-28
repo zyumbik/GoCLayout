@@ -119,5 +119,7 @@
     <string name="title_activity_random_events">Random events</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="add_probability_action">Add</string>
+    <string name="calculator_activity_name">Calculate probability</string>
+    <string name="user_random_events_activity_name">Random events</string>
 
 </resources>

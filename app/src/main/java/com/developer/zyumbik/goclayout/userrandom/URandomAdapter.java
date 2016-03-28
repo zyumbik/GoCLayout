@@ -13,15 +13,10 @@ import java.util.ArrayList;
 /** Created by glebsabirzanov on 27/03/16. */
 public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHolder> {
 
-	private ArrayList<URandomEventBrief> listBrief;
-	private ArrayList<URandomEventFull> listFull;
+	private ArrayList<URandomEvent> listBrief;
 
-	public URandomAdapter(ArrayList<URandomEventBrief> listBrief) {
+	public URandomAdapter(ArrayList<URandomEvent> listBrief) {
 		this.listBrief = listBrief;
-	}
-
-	public void setListFull(ArrayList<URandomEventFull> listFull) {
-		this.listFull = listFull;
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -50,7 +45,7 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 	@Override
 	public void onBindViewHolder(URandomAdapter.ViewHolder holder, int position) {
 		holder.header.setText(listBrief.get(position).getHeader());
-		holder.description.setText(listBrief.get(position).getDescription());
+		holder.description.setText(listBrief.get(position).getBriefDescription());
 		holder.percentage.setText(listBrief.get(position).getProbabilityInteger());
 	}
 

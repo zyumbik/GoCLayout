@@ -3,14 +3,15 @@ package com.developer.zyumbik.goclayout.userrandom;
 import java.text.DecimalFormat;
 
 /** Created by glebsabirzanov on 27/03/16. */
-public class URandomEventBrief {
+public class URandomEvent {
 
-	private String header, description;
+	private String header, briefDescription, fullDescription;
 	private int pplYes, pplNo;
 
-	public URandomEventBrief(String header, String description, int pplYes, int pplNo) {
+	public URandomEvent(String header, String briefDescription, String fullDescription, int pplYes, int pplNo) {
 		this.header = header;
-		this.description = description;
+		this.briefDescription = briefDescription;
+		this.fullDescription = fullDescription;
 		this.pplYes = pplYes;
 		this.pplNo = pplNo;
 	}
@@ -19,8 +20,8 @@ public class URandomEventBrief {
 		return header;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getBriefDescription() {
+		return briefDescription;
 	}
 
 	public String getProbabilityInteger() {

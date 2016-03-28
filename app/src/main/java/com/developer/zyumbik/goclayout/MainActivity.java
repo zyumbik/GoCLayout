@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -161,12 +160,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				card1.animate().z(8).withEndAction(new Runnable() {
 					@Override
 					public void run() {
-						Intent i = new Intent(MainActivity.this, RandomEvents.class);
+						Intent i = new Intent(MainActivity.this, URandomEvents.class);
 						startActivity(i);
 					}
 				}).start();
 			} else {
-				Intent i = new Intent(MainActivity.this, RandomEvents.class);
+				Intent i = new Intent(MainActivity.this, URandomEvents.class);
 				startActivity(i);
 			}
 		}

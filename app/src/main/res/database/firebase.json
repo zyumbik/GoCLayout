@@ -1,3 +1,22 @@
 {
-
+  "userRandomEvents": [
+    {"h": "Epic event", "db": "So it's cool you can participate here, you're awesome",
+      "df": "",
+      "t": 68, "f": 12},
+    {"h": "Just an occasion", "db": "",
+      "df": "",
+      "t": 5, "f": 51},
+    {"h": "Something cool", "db": "",
+      "df": "",
+      "t": 140, "f": 26},
+    {"h": "Your profession", "db": "",
+      "df": "",
+      "t": 4, "f": 257},
+    {"h": "What are you doing", "db": "",
+      "df": "",
+      "t": 34, "f": 44},
+    {"h": "A bus is near", "db": "",
+      "df": "",
+      "t": 2, "f": 341}
+  ]
 }
