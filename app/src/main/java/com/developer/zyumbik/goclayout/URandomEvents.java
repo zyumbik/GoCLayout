@@ -24,12 +24,13 @@ public class URandomEvents extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
 
+//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		// Firebase
 		Firebase rootRef = new Firebase("https://the-game-of-chance.firebaseio.com/");
 
 		// Temporarily filling arrays with data
 		events = new ArrayList<>();
-		fillList();
 
 		// Recycler view setup
 		recyclerView = (RecyclerView) findViewById(R.id.uRnd_list);
@@ -39,26 +40,6 @@ public class URandomEvents extends AppCompatActivity {
 		adapter = new URandomAdapter(events);
 		recyclerView.setAdapter(adapter);
 
-	}
-
-	private void fillList() {
-		Random rnd = new Random();
-		for (int i = 0; i < rnd.nextInt(20); i++) {
-			events.add(new URandomEvent(generateStatement(3), generateStatement(10),
-					generateStatement(20), rnd.nextInt(100), rnd.nextInt(100)));
-		}
-	}
-
-	private String generateStatement(int words) {
-		StringBuilder sb = new StringBuilder();
-		Random rnd = new Random();
-		String[] keywords = {"random", "probability", "event", "user", "is", "where",
-				"new", "list", "good", "answer", "game", "of", "chance"};
-		for (int i = 0; i < words; i++) {
-			sb.append(keywords[rnd.nextInt(13)]);
-			sb.append(" ");
-		}
-		return sb.toString();
 	}
 
 }

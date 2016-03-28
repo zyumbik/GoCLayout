@@ -25,8 +25,8 @@ public class Probability {
 //		this.index = sb.toString();
 //	}
 
-	public char getIndex() {
-		return this.index;
+	public String getIndex() {
+		return String.valueOf(this.index);
 	}
 
 	private float getValue() {
