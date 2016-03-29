@@ -9,14 +9,15 @@ import android.widget.TextView;
 import com.developer.zyumbik.goclayout.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** Created by glebsabirzanov on 27/03/16. */
 public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHolder> {
 
-	private ArrayList<URandomEvent> listBrief;
+	private List<URandomEvent> events;
 
-	public URandomAdapter(ArrayList<URandomEvent> listBrief) {
-		this.listBrief = listBrief;
+	public URandomAdapter(List<URandomEvent> events) {
+		this.events = events;
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -30,7 +31,7 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 
 		@Override
 		public void onClick(View v) {
-
+			// TODO: fragments for each probability
 		}
 	}
 
@@ -44,13 +45,17 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 
 	@Override
 	public void onBindViewHolder(URandomAdapter.ViewHolder holder, int position) {
-		holder.header.setText(listBrief.get(position).getHeader());
-		holder.description.setText(listBrief.get(position).getBriefDescription());
-		holder.percentage.setText(listBrief.get(position).getProbabilityInteger());
+		if (events.get(position).hashCode() != 0) {
+			holder.header.setText(events.get(position).getHeader());
+			holder.description.setText(events.get(position).getBriefDescription());
+			holder.percentage.setText(events.get(position).getProbabilityInteger());
+		} else {
+			events.remove(position);
+		}
 	}
 
 	@Override
 	public int getItemCount() {
-		return listBrief.size();
+		return events.size();
 	}
 }

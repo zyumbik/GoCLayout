@@ -8,6 +8,9 @@ public class URandomEvent {
 	private String header, briefDescription, fullDescription;
 	private int pplYes, pplNo;
 
+	public URandomEvent() {
+	}
+
 	public URandomEvent(String header, String briefDescription, String fullDescription, int pplYes, int pplNo) {
 		this.header = header;
 		this.briefDescription = briefDescription;
@@ -24,6 +27,10 @@ public class URandomEvent {
 		return briefDescription;
 	}
 
+	public String getFullDescription() {
+		return fullDescription;
+	}
+	
 	public String getProbabilityInteger() {
 		return (pplYes * 100) / (pplYes + pplNo) + "%";
 	}
@@ -39,5 +46,14 @@ public class URandomEvent {
 
 	public int getPplNo() {
 		return pplNo;
+	}
+
+	@Override
+	public int hashCode() {
+		if (header.length() == 0) {
+			return 0;
+		} else {
+			return super.hashCode();
+		}
 	}
 }

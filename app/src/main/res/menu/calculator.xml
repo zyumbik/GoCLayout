@@ -5,12 +5,12 @@
     <item
         android:id="@+id/action_favorite"
         android:icon="@drawable/ic_share_24dp"
-        android:title="@string/btnShare"
+        android:title="@string/button_share"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_random_generator"
-        android:title="@string/rndGenerator"
+        android:title="@string/random_number_generator"
         app:showAsAction="never"
         />
 

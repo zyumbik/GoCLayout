@@ -8,8 +8,8 @@ import com.firebase.client.Firebase;
 public class AppClass extends Application {
 
 	// Database key names
-	public final String DB_HEADER = "header", DB_BRIEF_DESCRIPTION = "briefDescription",
-			DB_FULL_DESCRIPTION = "fullDescription", DB_PPL_YES = "pplYes", DB_PPL_NO = "pplNo";
+//	public final String DB_HEADER = "header", DB_BRIEF_DESCRIPTION = "briefDescription",
+//			DB_FULL_DESCRIPTION = "fullDescription", DB_PPL_YES = "pplYes", DB_PPL_NO = "pplNo";
 
 	@Override
 	public void onCreate() {
