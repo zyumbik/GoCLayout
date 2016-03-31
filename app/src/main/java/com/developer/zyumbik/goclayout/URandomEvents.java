@@ -64,7 +64,7 @@ public class URandomEvents extends AppCompatActivity {
 				for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 					URandomEvent event = postSnapshot.getValue(URandomEvent.class);
 					events.add(event);
-					// TODO: give progress to dialog
+					// TODO: set progress to be shown in the dialog
 //					progressDialog.setMessage((int)(events.size() / children) + "%");
 //					progressDialog.setProgress((int)(events.size() / children));
 				}
@@ -105,7 +105,7 @@ public class URandomEvents extends AppCompatActivity {
 			recyclerView.setAdapter(adapter);
 		} else {
 			events = new ArrayList<>();
-			events.add(new URandomEvent("", "", "", 0, 1));
+			events.add(new URandomEvent("", "", 0, 1));
 			// Recursive method invocation
 			setRecyclerView();
 			events.remove(0);

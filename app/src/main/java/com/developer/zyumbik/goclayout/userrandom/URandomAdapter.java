@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** Created by glebsabirzanov on 27/03/16. */
@@ -25,13 +24,13 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 		public ViewHolder(View v) {
 			super(v);
 			header = (TextView) v.findViewById(R.id.uRnd_list_item_header);
-			percentage = (TextView) v.findViewById(R.id.uRnd_list_item_probability);
+			percentage = (TextView) v.findViewById(R.id.uRnd_list_item_percent_display);
 			description = (TextView) v.findViewById(R.id.uRnd_list_item_description);
 		}
 
 		@Override
 		public void onClick(View v) {
-			// TODO: fragments for each probability
+
 		}
 	}
 
@@ -47,7 +46,7 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 	public void onBindViewHolder(URandomAdapter.ViewHolder holder, int position) {
 		if (events.get(position).hashCode() != 0) {
 			holder.header.setText(events.get(position).getHeader());
-			holder.description.setText(events.get(position).getBriefDescription());
+			holder.description.setText(events.get(position).getDescription());
 			holder.percentage.setText(events.get(position).getProbabilityInteger());
 		} else {
 			events.remove(position);

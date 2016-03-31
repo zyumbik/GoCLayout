@@ -5,16 +5,15 @@ import java.text.DecimalFormat;
 /** Created by glebsabirzanov on 27/03/16. */
 public class URandomEvent {
 
-	private String header, briefDescription, fullDescription;
+	private String header, description;
 	private int pplYes, pplNo;
 
 	public URandomEvent() {
 	}
 
-	public URandomEvent(String header, String briefDescription, String fullDescription, int pplYes, int pplNo) {
+	public URandomEvent(String header, String description, int pplYes, int pplNo) {
 		this.header = header;
-		this.briefDescription = briefDescription;
-		this.fullDescription = fullDescription;
+		this.description = description;
 		this.pplYes = pplYes;
 		this.pplNo = pplNo;
 	}
@@ -23,14 +22,10 @@ public class URandomEvent {
 		return header;
 	}
 
-	public String getBriefDescription() {
-		return briefDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public String getFullDescription() {
-		return fullDescription;
-	}
-	
 	public String getProbabilityInteger() {
 		return (pplYes * 100) / (pplYes + pplNo) + "%";
 	}
@@ -56,8 +51,8 @@ public class URandomEvent {
 			if(super.hashCode() != 0) {
 				return super.hashCode();
 			}
-			return (header.length() + fullDescription.length()) *
-					(fullDescription.length() + briefDescription.length()) /
+			return (header.length() + description.length()) *
+					(description.length()) /
 					(pplYes == 0 ? pplNo : pplYes);
 		}
 	}
