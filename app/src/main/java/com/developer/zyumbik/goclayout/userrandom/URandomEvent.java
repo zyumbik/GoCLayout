@@ -53,7 +53,12 @@ public class URandomEvent {
 		if (header.length() == 0) {
 			return 0;
 		} else {
-			return super.hashCode();
+			if(super.hashCode() != 0) {
+				return super.hashCode();
+			}
+			return (header.length() + fullDescription.length()) *
+					(fullDescription.length() + briefDescription.length()) /
+					(pplYes == 0 ? pplNo : pplYes);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -64,15 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					    }
 					    expanded = 1;
 					    changeState(full1, brief1);
-					    if (Build.VERSION.SDK_INT > 20) {
-						    card1.animate().z(8).withEndAction(new Runnable() {
-							    @Override
-							    public void run() {
-								    if (Build.VERSION.SDK_INT > 20)
-									    card1.animate().z(2).start();
-							    }
-						    }).start();
-					    }
+					    animateCard(card1);
 					    flip(arrow1);
 				    }
 			    }
@@ -93,15 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					    }
 					    expanded = 2;
 					    changeState(full2, brief2);
-					    if (Build.VERSION.SDK_INT > 20) {
-						    card2.animate().z(8).withEndAction(new Runnable() {
-							    @Override
-							    public void run() {
-								    if (Build.VERSION.SDK_INT > 20)
-									    card2.animate().z(2).start();
-							    }
-						    }).start();
-					    }
+					    animateCard(card2);
 					    flip(arrow2);
 				    }
 			    }
@@ -122,16 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					    }
 					    expanded = 3;
 					    changeState(full3, brief3);
-					    if (Build.VERSION.SDK_INT > 20) {
-						    card3.animate().z(8).withEndAction(new Runnable() {
-							    @Override
-							    public void run() {
-								    // TODO: remove unnecessary version check 
-								    if (Build.VERSION.SDK_INT > 20)
-									    card3.animate().z(2).start();
-							    }
-						    }).start();
-					    }
+					    animateCard(card3);
 					    flip(arrow3);
 				    }
 			    }
@@ -143,13 +119,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	    }
     }
 
-	public void changeState (final View toExpand, final View toCollapse) {
+	private void changeState (final View toExpand, final View toCollapse) {
 		toExpand.setVisibility(View.VISIBLE);
 		toCollapse.setVisibility(View.GONE);
 	}
 
-	public void flip(final View arrow) {
+	private void flip(final View arrow) {
 		arrow.animate().rotationBy(180).start();
+	}
+
+	private void animateCard(final View v) {
+		if (Build.VERSION.SDK_INT > 20) {
+			v.animate().z(8).withEndAction(new Runnable() {
+				@Override
+				public void run() {
+					// TODO: remove unnecessary version check
+					if (Build.VERSION.SDK_INT > 20)
+						v.animate().z(2).start();
+				}
+			}).start();
+		}
 	}
 
 	@Override

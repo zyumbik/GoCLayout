@@ -19,7 +19,7 @@
             android:id="@+id/toolbarCTLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:title="Probability calculator"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary">
 
             <android.support.v7.widget.Toolbar
@@ -34,8 +34,7 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/layout_input_calculator"
@@ -107,6 +106,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- TODO: make this textview invisible until elements are added -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

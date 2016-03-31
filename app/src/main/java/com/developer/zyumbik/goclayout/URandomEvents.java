@@ -2,13 +2,12 @@ package com.developer.zyumbik.goclayout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.developer.zyumbik.goclayout.userrandom.URandomAdapter;
 import com.developer.zyumbik.goclayout.userrandom.URandomEvent;
@@ -19,7 +18,6 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class URandomEvents extends AppCompatActivity {
 
@@ -39,13 +37,15 @@ public class URandomEvents extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
 
+		// TODO: Action bar and back button
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		final Context context = this;
 		progressDialog = new ProgressDialog(context);
-		progressDialog.setProgress(0);
 		progressDialog.setTitle("Loading list");
 		progressDialog.show();
-
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// Recycler View initialization with non-empty array list
 		recyclerView = (RecyclerView) findViewById(R.id.uRnd_list);
@@ -54,19 +54,21 @@ public class URandomEvents extends AppCompatActivity {
 		recyclerView.setLayoutManager(layoutManager);
 		setRecyclerView();
 
-		// Getting data for list from Firebase
+		// Getting list from Firebase
 		Firebase ref = new Firebase("https://the-game-of-chance.firebaseio.com/userRandomEvents");
 		ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
-				final long children = dataSnapshot.getChildrenCount();
+//				final long children = dataSnapshot.getChildrenCount();
 				for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 					URandomEvent event = postSnapshot.getValue(URandomEvent.class);
 					events.add(event);
-//					System.out.println("Data received: " + event.getHeader());
-					progressDialog.setProgress((int)(events.size() / children));
+					// TODO: give progress to dialog
+//					progressDialog.setMessage((int)(events.size() / children) + "%");
+//					progressDialog.setProgress((int)(events.size() / children));
 				}
+//				progressDialog.setMessage("100%");
 				setRecyclerView();
 				progressDialog.dismiss();
 			}
@@ -108,6 +110,13 @@ public class URandomEvents extends AppCompatActivity {
 			setRecyclerView();
 			events.remove(0);
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.calculator, menu);
+		return true;
 	}
 
 }

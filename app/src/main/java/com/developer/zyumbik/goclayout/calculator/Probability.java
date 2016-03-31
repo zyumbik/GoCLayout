@@ -34,7 +34,7 @@ public class Probability {
 	}
 
 	public String getPercent() {
-		// TODO: change to ##.(*), where (*) is the repeating part (for irrational decimals)
+		// TODO: change to ##.(*), where (*) is the repeating part (for repeating decimals)
 		return new DecimalFormat("#.##%").format(getValue());
 	}
 
