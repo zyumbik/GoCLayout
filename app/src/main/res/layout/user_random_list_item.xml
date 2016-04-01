@@ -10,19 +10,17 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textColor="@color/textRegular"
-        android:textSize="8pt"
-        android:text="This is an event"/>
+        android:textSize="8pt"/>
 
     <TextView
-        android:id="@+id/uRnd_list_item_percent_display"
+        android:id="@+id/uRnd_list_item_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12pt"
         android:layout_below="@id/uRnd_list_item_header"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="\??%"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/uRnd_list_item_description"
@@ -33,9 +31,8 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:layout_below="@id/uRnd_list_item_header"
-        android:layout_toLeftOf="@id/uRnd_list_item_percent_display"
-        android:layout_toStartOf="@id/uRnd_list_item_percent_display"
-        android:text="Short description"/>
+        android:layout_toLeftOf="@id/uRnd_list_item_percentage"
+        android:layout_toStartOf="@id/uRnd_list_item_percentage"/>
 
 
 </RelativeLayout>

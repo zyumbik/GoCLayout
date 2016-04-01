@@ -46,5 +46,6 @@
     <string name="button_false">false</string>
     <string name="button_true">true</string>
     <string name="uRandom_event_text_question">This event is true for you, isn\'t it?</string>
+    <string name="button_poll_skip">Show results</string>
 
 </resources>

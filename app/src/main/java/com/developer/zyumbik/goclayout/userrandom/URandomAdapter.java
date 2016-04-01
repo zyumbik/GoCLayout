@@ -24,7 +24,7 @@ public class URandomAdapter extends RecyclerView.Adapter<URandomAdapter.ViewHold
 		public ViewHolder(View v) {
 			super(v);
 			header = (TextView) v.findViewById(R.id.uRnd_list_item_header);
-			percentage = (TextView) v.findViewById(R.id.uRnd_list_item_percent_display);
+			percentage = (TextView) v.findViewById(R.id.uRnd_list_item_percentage);
 			description = (TextView) v.findViewById(R.id.uRnd_list_item_description);
 		}
 
