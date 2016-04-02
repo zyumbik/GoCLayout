@@ -1,16 +1,22 @@
 package com.developer.zyumbik.goclayout;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 
-import com.developer.zyumbik.goclayout.userrandom.URandomAdapter;
-import com.developer.zyumbik.goclayout.userrandom.URandomEvent;
+import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
+import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
+import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -19,13 +25,16 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class URandomEvents extends AppCompatActivity {
+public class URandomEvents extends AppCompatActivity implements URandomListAdapter.ItemClickListener {
 
 	private RecyclerView recyclerView;
 	private RecyclerView.Adapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
-	private List<URandomEvent> events;
+	private List<URandomEventListItem> events;
 	private ProgressDialog progressDialog;
+	private CoordinatorLayout coordinatorLayout;
+	private View bottomSheetPoll;
+	private BottomSheetBehavior behaviorPoll;
 
 	@Override
 	public void onBackPressed() {
@@ -36,6 +45,8 @@ public class URandomEvents extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
+
+		coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
 
 		// TODO: Action bar and back button
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
@@ -62,7 +73,7 @@ public class URandomEvents extends AppCompatActivity {
 			public void onDataChange(DataSnapshot dataSnapshot) {
 //				final long children = dataSnapshot.getChildrenCount();
 				for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-					URandomEvent event = postSnapshot.getValue(URandomEvent.class);
+					URandomEventListItem event = postSnapshot.getValue(URandomEventListItem.class);
 					events.add(event);
 					// TODO: set progress to be shown in the dialog
 //					progressDialog.setMessage((int)(events.size() / children) + "%");
@@ -80,6 +91,16 @@ public class URandomEvents extends AppCompatActivity {
 				finishActivityIn(3500);
 			}
 		});
+
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		FragmentRandomEventPoll fragmentRandomEventPoll = new FragmentRandomEventPoll();
+		fragmentTransaction.commit();
+
+	}
+
+	@Override
+	public void onItemClick(URandomEventListItem item) {
 
 	}
 
@@ -101,12 +122,12 @@ public class URandomEvents extends AppCompatActivity {
 
 	private void setRecyclerView() {
 		if (events != null) {
-			adapter = new URandomAdapter(events);
+			adapter = new URandomListAdapter(events);
 			recyclerView.setAdapter(adapter);
 		} else {
 			events = new ArrayList<>();
-			events.add(new URandomEvent("", "", 0, 1));
-			// Recursive method invocation
+			events.add(new URandomEventListItem("", "", 0, 1));
+			// Recursive method call
 			setRecyclerView();
 			events.remove(0);
 		}
@@ -118,5 +139,4 @@ public class URandomEvents extends AppCompatActivity {
 		getMenuInflater().inflate(R.menu.calculator, menu);
 		return true;
 	}
-
 }

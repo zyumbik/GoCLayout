@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context=".userrandom.FragmentRandomEventPoll"
+              app:layout_behavior="@string/bottom_sheet_behavior"
+              android:layout_marginTop="@dimen/bottom_sheet_vertical_margin"
+              android:layout_marginBottom="@dimen/bottom_sheet_vertical_margin"
+              android:background="@android:color/white"
+              android:layout_gravity="bottom"
+              android:orientation="vertical"
+              android:nestedScrollingEnabled="true">
+
+    <TextView
+        android:id="@+id/uRnd_fragment_bottom_sheet_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:padding="@dimen/text_offset"
+        android:text="Headline"/>
+
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/bottom_sheet_horizontal_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_horizontal_margin"
+        android:layout_marginRight="@dimen/bottom_sheet_horizontal_margin"
+        android:layout_marginEnd="@dimen/bottom_sheet_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/uRnd_fragment_bottom_sheet_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:text="@string/uRandom_event_text_question"/>
+
+        <Button
+            android:id="@+id/uRnd_fragment_bottom_sheet_button_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_below="@id/uRnd_fragment_bottom_sheet_question"
+            android:text="@string/button_poll_skip"/>
+
+        <Button
+            android:id="@+id/uRnd_fragment_bottom_sheet_button_true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_below="@id/uRnd_fragment_bottom_sheet_question"
+            android:text="@string/button_true"/>
+
+        <Button
+            android:id="@+id/uRnd_fragment_bottom_sheet_button_false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_below="@id/uRnd_fragment_bottom_sheet_question"
+            android:layout_toLeftOf="@id/uRnd_fragment_bottom_sheet_button_true"
+            android:layout_toStartOf="@id/uRnd_fragment_bottom_sheet_button_true"
+            android:text="@string/button_false"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
