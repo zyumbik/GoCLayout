@@ -1,22 +1,21 @@
 package com.developer.zyumbik.goclayout;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
-import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
 import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
+import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -25,16 +24,17 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class URandomEvents extends AppCompatActivity implements URandomListAdapter.ItemClickListener {
+public class URandomEvents extends AppCompatActivity {
 
 	private RecyclerView recyclerView;
-	private RecyclerView.Adapter adapter;
+	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
 	private List<URandomEventListItem> events;
 	private ProgressDialog progressDialog;
 	private CoordinatorLayout coordinatorLayout;
 	private View bottomSheetPoll;
 	private BottomSheetBehavior behaviorPoll;
+	FragmentRandomEventPoll fragmentRandomEventPoll;
 
 	@Override
 	public void onBackPressed() {
@@ -92,16 +92,6 @@ public class URandomEvents extends AppCompatActivity implements URandomListAdapt
 			}
 		});
 
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		FragmentRandomEventPoll fragmentRandomEventPoll = new FragmentRandomEventPoll();
-		fragmentTransaction.commit();
-
-	}
-
-	@Override
-	public void onItemClick(URandomEventListItem item) {
-
 	}
 
 	private void finishActivityIn(final long milliseconds) {
@@ -124,6 +114,14 @@ public class URandomEvents extends AppCompatActivity implements URandomListAdapt
 		if (events != null) {
 			adapter = new URandomListAdapter(events);
 			recyclerView.setAdapter(adapter);
+
+			adapter.setListener(new URandomListAdapter.ItemClickListener() {
+				@Override
+				public void onItemClick(URandomEventListItem item) {
+					Log.d("Item header: ", item.getHeader());
+				}
+			});
+
 		} else {
 			events = new ArrayList<>();
 			events.add(new URandomEventListItem("", "", 0, 1));
