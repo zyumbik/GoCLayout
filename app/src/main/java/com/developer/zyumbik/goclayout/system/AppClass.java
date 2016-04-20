@@ -8,8 +8,9 @@ import com.firebase.client.Firebase;
 public class AppClass extends Application {
 
 	// Database key names
-//	public final String DB_HEADER = "header", DB_BRIEF_DESCRIPTION = "briefDescription",
-//			DB_FULL_DESCRIPTION = "fullDescription", DB_PPL_YES = "pplYes", DB_PPL_NO = "pplNo";
+	public static final String PROBABILITIES_LIST_URL = "https://the-game-of-chance.firebaseio.com/userRandomEvents";
+//	public static final String DB_HEADER = "header", DB_DESCRIPTION = "description",
+//			DB_PPL_YES = "pplYes", DB_PPL_NO = "pplNo";
 
 	@Override
 	public void onCreate() {

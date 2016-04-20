@@ -47,10 +47,8 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 
 		@Override
 		public void onClick(View v) {
-			Log.d("ONCLICK", "Clicked");
 			if (listener != null && item != null) {
-				Log.d("ONCLICK", "Listener not null");
-				listener.onItemClick(item);
+				listener.onItemClick(item, getAdapterPosition());
 			}
 		}
 	}
@@ -78,7 +76,7 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 	}
 
 	public interface ItemClickListener {
-		void onItemClick(URandomEventListItem item);
+		void onItemClick(URandomEventListItem item, int id);
 	}
 
 }

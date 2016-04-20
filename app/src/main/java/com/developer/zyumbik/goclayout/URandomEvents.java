@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.developer.zyumbik.goclayout.system.AppClass;
 import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
 import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
 import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
@@ -32,9 +33,6 @@ public class URandomEvents extends AppCompatActivity {
 	private List<URandomEventListItem> events;
 	private ProgressDialog progressDialog;
 	private CoordinatorLayout coordinatorLayout;
-	private View bottomSheetPoll;
-	private BottomSheetBehavior behaviorPoll;
-	FragmentRandomEventPoll fragmentRandomEventPoll;
 
 	@Override
 	public void onBackPressed() {
@@ -56,6 +54,7 @@ public class URandomEvents extends AppCompatActivity {
 		final Context context = this;
 		progressDialog = new ProgressDialog(context);
 		progressDialog.setTitle("Loading list");
+		progressDialog.setCancelable(false);
 		progressDialog.show();
 
 		// Recycler View initialization with non-empty array list
@@ -65,8 +64,13 @@ public class URandomEvents extends AppCompatActivity {
 		recyclerView.setLayoutManager(layoutManager);
 		setRecyclerView();
 
-		// Getting list from Firebase
-		Firebase ref = new Firebase("https://the-game-of-chance.firebaseio.com/userRandomEvents");
+		fetchFromFirebase();
+
+	}
+
+	private void fetchFromFirebase() {
+		// Get list of events from Firebase
+		Firebase ref = new Firebase(AppClass.PROBABILITIES_LIST_URL);
 		ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
 			@Override
@@ -90,8 +94,8 @@ public class URandomEvents extends AppCompatActivity {
 						+ firebaseError.getMessage());
 				finishActivityIn(3500);
 			}
-		});
 
+		});
 	}
 
 	private void finishActivityIn(final long milliseconds) {
@@ -117,8 +121,8 @@ public class URandomEvents extends AppCompatActivity {
 
 			adapter.setListener(new URandomListAdapter.ItemClickListener() {
 				@Override
-				public void onItemClick(URandomEventListItem item) {
-					Log.d("Item header: ", item.getHeader());
+				public void onItemClick(URandomEventListItem item, int id) {
+					showBottomSheet(id);
 				}
 			});
 
@@ -129,6 +133,11 @@ public class URandomEvents extends AppCompatActivity {
 			setRecyclerView();
 			events.remove(0);
 		}
+	}
+
+	private void showBottomSheet(int id) {
+		FragmentRandomEventPoll poll = FragmentRandomEventPoll.newInstance(events.get(id));
+		poll.show(getSupportFragmentManager(), "dialog_poll");
 	}
 
 	@Override
