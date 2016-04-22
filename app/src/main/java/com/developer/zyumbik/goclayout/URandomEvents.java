@@ -153,25 +153,28 @@ public class URandomEvents extends AppCompatActivity {
 		} else {
 			poll = FragmentRandomEventPoll.newInstance(events.get(id));
 			poll.setListener(new FragmentRandomEventPoll.PollButtonClickListener() {
+
 				@Override
-				public void onPollButtonClickSkip() {
+				public void onAnyButtonClick() {
 					answeredEvents[id] = true;
 					showBottomSheet(id);
+				}
+
+				@Override
+				public void onPollButtonClickSkip() {
+
 				}
 
 				@Override
 				public void onPollButtonClickPositive() {
-					answeredEvents[id] = true;
 					events.get(id).addPplYes();
 					adapter.replaceListItem(events.get(id), id);
-					showBottomSheet(id);
 				}
 
 				@Override
 				public void onPollButtonClickNegative() {
-					answeredEvents[id] = true;
 					events.get(id).addPplNo();
-					showBottomSheet(id);
+					adapter.replaceListItem(events.get(id), id);
 				}
 			});
 			poll.show(getSupportFragmentManager(), "dialog_event_poll");

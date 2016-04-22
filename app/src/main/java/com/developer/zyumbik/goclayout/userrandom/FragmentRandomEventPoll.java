@@ -3,10 +3,10 @@ package com.developer.zyumbik.goclayout.userrandom;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +16,8 @@ import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.R;
 import com.firebase.client.annotations.NotNull;
-import com.firebase.client.realtime.util.StringListReader;
 
-public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
+public class FragmentRandomEventPoll extends BottomSheetDialogFragment implements View.OnClickListener {
 
 	private TextView header;
 	private Button skip, positive, negative;
@@ -35,7 +34,7 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
 		return fragment;
 	}
 
-	@NotNull @Override
+	@NonNull @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -59,51 +58,33 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
 	                         Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_random_event_poll, container, false);
 		header = (TextView) v.findViewById(R.id.uRnd_fragment_bottom_sheet_poll_header);
-		header.setText(headerItem);
 		skip = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_skip);
 		positive = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_positive);
 		negative = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_negative);
 
-		skip.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				skip();
-			}
-		});
-		positive.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				positive();
-
-			}
-		});
-		negative.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				negative();
-
-			}
-		});
+		header.setText(headerItem);
+		skip.setOnClickListener(this);
+		positive.setOnClickListener(this);
+		negative.setOnClickListener(this);
 
 		return v;
 	}
 
-	private void skip() {
-		listener.onPollButtonClickSkip();
-		dismiss();
-	}
-
-	private void positive() {
-		listener.onPollButtonClickPositive();
-		dismiss();
-	}
-
-	private void negative() {
-		listener.onPollButtonClickNegative();
+	@Override
+	public void onClick(View v) {
+		if (v.equals(skip)) {
+			listener.onPollButtonClickSkip();
+		} else if (v.equals(positive)) {
+			listener.onPollButtonClickPositive();
+		} else if (v.equals(negative)) {
+			listener.onPollButtonClickNegative();
+		}
+		listener.onAnyButtonClick();
 		dismiss();
 	}
 
 	public interface PollButtonClickListener {
+		void onAnyButtonClick();
 		void onPollButtonClickSkip();
 		void onPollButtonClickPositive();
 		void onPollButtonClickNegative();

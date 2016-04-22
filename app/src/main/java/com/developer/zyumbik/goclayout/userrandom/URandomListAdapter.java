@@ -1,15 +1,12 @@
 package com.developer.zyumbik.goclayout.userrandom;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.R;
-import com.developer.zyumbik.goclayout.URandomEvents;
 
 import java.util.List;
 
@@ -47,7 +44,7 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 		public void initializeHolder(URandomEventListItem item) {
 			header.setText(item.getHeader());
 			description.setText(item.getDescription());
-			percentage.setText(item.getProbabilityInteger());
+			percentage.setText(item.getProbabilityPercentRound());
 		}
 
 		@Override

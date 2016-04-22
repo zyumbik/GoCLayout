@@ -35,13 +35,21 @@ public class URandomEventListItem {
 		return description;
 	}
 
-	public String getProbabilityInteger() {
-		return (pplYes * 100) / (pplYes + pplNo) + "%";
+	public long getProbabilityLong() {
+		return Math.round(getProbabilityDouble() * 100);
 	}
 
 	public double getProbabilityDouble() {
 		// TODO: make it work better with repeating decimals
-		return Double.valueOf(new DecimalFormat("##.##").format((pplYes / (double)(pplNo + pplYes)) * 100));
+		return pplYes / (double)(pplNo + pplYes);
+	}
+
+	public String getProbabilityPercentRound() {
+		return getProbabilityLong() + "%";
+	}
+
+	public String getProbabilityPercentFull() {
+		return Double.valueOf(new DecimalFormat("##.##").format(getProbabilityDouble() * 100)) + "%";
 	}
 
 	public int getPplYes() {
