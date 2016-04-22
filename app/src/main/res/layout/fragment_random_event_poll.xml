@@ -10,7 +10,7 @@
               android:background="@android:color/white"
               android:layout_gravity="bottom"
               android:orientation="vertical"
-              android:tag="dialog_poll"
+              android:tag="dialog_event_poll"
               android:nestedScrollingEnabled="true">
 
     <TextView

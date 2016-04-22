@@ -23,6 +23,11 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
 	private TextView header;
 	private Button skip, positive, negative;
 	private static String headerItem;
+	private PollButtonClickListener listener;
+
+	public void setListener(PollButtonClickListener listener) {
+		this.listener = listener;
+	}
 
 	public static FragmentRandomEventPoll newInstance(URandomEventListItem item) {
 		FragmentRandomEventPoll fragment = new FragmentRandomEventPoll();
@@ -62,22 +67,20 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
 		skip.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("onClick", "skip");
+				skip();
 			}
 		});
-
 		positive.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("onClick", "positive");
+				positive();
 
 			}
 		});
-
 		negative.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("onClick", "negative");
+				negative();
 
 			}
 		});
@@ -85,8 +88,25 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment {
 		return v;
 	}
 
-	public interface pollButtonPressed {
+	private void skip() {
+		listener.onPollButtonClickSkip();
+		dismiss();
+	}
 
+	private void positive() {
+		listener.onPollButtonClickPositive();
+		dismiss();
+	}
+
+	private void negative() {
+		listener.onPollButtonClickNegative();
+		dismiss();
+	}
+
+	public interface PollButtonClickListener {
+		void onPollButtonClickSkip();
+		void onPollButtonClickPositive();
+		void onPollButtonClickNegative();
 	}
 
 }

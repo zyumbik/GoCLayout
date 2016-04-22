@@ -9,6 +9,15 @@ public class URandomEventListItem {
 	private int pplYes, pplNo;
 
 	public URandomEventListItem() {
+		// Required empty constructor
+	}
+
+	public void addPplNo() {
+		this.pplNo++;
+	}
+
+	public void addPplYes() {
+		this.pplYes++;
 	}
 
 	public URandomEventListItem(String header, String description, int pplYes, int pplNo) {
@@ -32,7 +41,7 @@ public class URandomEventListItem {
 
 	public double getProbabilityDouble() {
 		// TODO: make it work better with repeating decimals
-		return Double.valueOf(new DecimalFormat("##.##").format(pplYes / (double)(pplNo + pplYes)));
+		return Double.valueOf(new DecimalFormat("##.##").format((pplYes / (double)(pplNo + pplYes)) * 100));
 	}
 
 	public int getPplYes() {

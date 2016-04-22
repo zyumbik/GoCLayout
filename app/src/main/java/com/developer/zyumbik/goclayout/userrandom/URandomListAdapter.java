@@ -27,6 +27,11 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 		this.listener = listener;
 	}
 
+	public void replaceListItem(URandomEventListItem item, int index) {
+		events.set(index, item);
+		notifyItemChanged(index);
+	}
+
 	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 		public TextView header, description, percentage;
 		public URandomEventListItem item;

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.developer.zyumbik.goclayout.system.AppClass;
+import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventDetails;
 import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
 import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
 import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
@@ -31,8 +32,11 @@ public class URandomEvents extends AppCompatActivity {
 	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
 	private List<URandomEventListItem> events;
+	private boolean[] answeredEvents;
 	private ProgressDialog progressDialog;
-	private CoordinatorLayout coordinatorLayout;
+	private FragmentRandomEventDetails details;
+	private FragmentRandomEventPoll poll;
+//	private CoordinatorLayout coordinatorLayout;
 
 	@Override
 	public void onBackPressed() {
@@ -44,7 +48,7 @@ public class URandomEvents extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
 
-		coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+//		coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
 
 		// TODO: Action bar and back button
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
@@ -53,7 +57,7 @@ public class URandomEvents extends AppCompatActivity {
 
 		final Context context = this;
 		progressDialog = new ProgressDialog(context);
-		progressDialog.setTitle("Loading list");
+		progressDialog.setTitle("Loading data");
 		progressDialog.setCancelable(false);
 		progressDialog.show();
 
@@ -85,6 +89,7 @@ public class URandomEvents extends AppCompatActivity {
 				}
 //				progressDialog.setMessage("100%");
 				setRecyclerView();
+				answeredEvents = new boolean[events.size()];
 				progressDialog.dismiss();
 			}
 
@@ -135,9 +140,42 @@ public class URandomEvents extends AppCompatActivity {
 		}
 	}
 
-	private void showBottomSheet(int id) {
-		FragmentRandomEventPoll poll = FragmentRandomEventPoll.newInstance(events.get(id));
-		poll.show(getSupportFragmentManager(), "dialog_poll");
+	private void showBottomSheet(final int id) {
+		if (details != null) {
+			details.dismiss();
+		}
+		if (poll != null) {
+			poll.dismiss();
+		}
+		if (answeredEvents[id]) {
+			details = FragmentRandomEventDetails.newInstance(events.get(id));
+			details.show(getSupportFragmentManager(), "dialog_event_details");
+		} else {
+			poll = FragmentRandomEventPoll.newInstance(events.get(id));
+			poll.setListener(new FragmentRandomEventPoll.PollButtonClickListener() {
+				@Override
+				public void onPollButtonClickSkip() {
+					answeredEvents[id] = true;
+					showBottomSheet(id);
+				}
+
+				@Override
+				public void onPollButtonClickPositive() {
+					answeredEvents[id] = true;
+					events.get(id).addPplYes();
+					adapter.replaceListItem(events.get(id), id);
+					showBottomSheet(id);
+				}
+
+				@Override
+				public void onPollButtonClickNegative() {
+					answeredEvents[id] = true;
+					events.get(id).addPplNo();
+					showBottomSheet(id);
+				}
+			});
+			poll.show(getSupportFragmentManager(), "dialog_event_poll");
+		}
 	}
 
 	@Override

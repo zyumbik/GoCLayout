@@ -9,6 +9,7 @@
     android:layout_marginBottom="@dimen/bottom_sheet_vertical_margin"
     android:orientation="vertical"
     android:layout_gravity="bottom"
+    android:tag="dialog_event_details"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:background="@android:color/white">
 
@@ -19,6 +20,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:padding="@dimen/text_offset"
         android:text="Headline"/>
+
+    <TextView
+        android:id="@+id/uRnd_fragment_bottom_sheet_details_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:padding="@dimen/text_offset"
+        android:text="Description"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
