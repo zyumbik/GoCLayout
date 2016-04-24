@@ -74,8 +74,9 @@ public class URandomEvents extends AppCompatActivity {
 
 	private void fetchFromFirebase() {
 		// Get list of events from Firebase
-		Firebase ref = new Firebase(AppClass.PROBABILITIES_LIST_URL);
-		ref.addListenerForSingleValueEvent(new ValueEventListener() {
+		final Firebase refList = new Firebase(AppClass.PROBABILITIES_LIST_URL);
+		refList.keepSynced(true);
+		refList.addListenerForSingleValueEvent(new ValueEventListener() {
 
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,7 +109,7 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(milliseconds * 1000);
+					Thread.sleep(milliseconds);
 					progressDialog.dismiss();
 					finish();
 				} catch (Exception e) {
@@ -180,6 +181,8 @@ public class URandomEvents extends AppCompatActivity {
 			poll.show(getSupportFragmentManager(), "dialog_event_poll");
 		}
 	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

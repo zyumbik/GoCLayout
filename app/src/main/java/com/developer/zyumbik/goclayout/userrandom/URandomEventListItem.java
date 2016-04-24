@@ -40,7 +40,6 @@ public class URandomEventListItem {
 	}
 
 	public double getProbabilityDouble() {
-		// TODO: make it work better with repeating decimals
 		return pplYes / (double)(pplNo + pplYes);
 	}
 
@@ -49,6 +48,7 @@ public class URandomEventListItem {
 	}
 
 	public String getProbabilityPercentFull() {
+		// TODO: make it work better with repeating decimals
 		return Double.valueOf(new DecimalFormat("##.##").format(getProbabilityDouble() * 100)) + "%";
 	}
 

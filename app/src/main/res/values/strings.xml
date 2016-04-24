@@ -41,11 +41,13 @@
     <string name="calc_list_separator">:</string>
     <string name="remove_item">Remove item</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- User Random events -->
     <string name="button_false">false</string>
     <string name="button_true">true</string>
     <string name="uRandom_event_text_question">This event is true for you, isn\'t it?</string>
     <string name="button_poll_skip">Show results</string>
+
+    <!-- Authentication -->
+    <string name="button_submit">Submit</string>
 
 </resources>

@@ -10,25 +10,40 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
 import com.firebase.client.Firebase;
+import com.firebase.client.realtime.util.StringListReader;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-	ImageButton arrow1, arrow2, arrow3;
-	TextView full1, full2, full3;
-	TextView brief1, brief2, brief3;
-	CardView card1, card2, card3;
-	int expanded = 1;
+	private ImageButton arrow1, arrow2, arrow3;
+	private TextView full1, full2, full3;
+	private TextView brief1, brief2, brief3;
+	private CardView card1, card2, card3;
+	private int expanded = 1;
+	private FragmentAuthentication fragmentAuthentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-	    if (!new View(this).isInEditMode()) {
+	    fragmentAuthentication = FragmentAuthentication.newInstance();
+	    fragmentAuthentication.setListener(new FragmentAuthentication.OnAuthFragmentInteractionListener() {
+		    @Override
+		    public void onSubmitClicked(String email) {
+			    Log.d("Email", email);
+		    }
 
-		    Firebase.setAndroidContext(this);
+		    @Override
+		    public void onCancelled() {
+
+		    }
+	    });
+	    fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
+
+	    if (!new View(this).isInEditMode()) {
 
 		    arrow1 = (ImageButton) findViewById(R.id.arrow1);
 		    arrow2 = (ImageButton) findViewById(R.id.arrow2);

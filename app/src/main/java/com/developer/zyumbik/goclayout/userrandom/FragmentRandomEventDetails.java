@@ -35,20 +35,20 @@ public class FragmentRandomEventDetails extends BottomSheetDialogFragment {
 		return fragment;
 	}
 
-	@NonNull @Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-			@Override
-			public void onShow(DialogInterface dialog) {
-				BottomSheetDialog d = (BottomSheetDialog) dialog;
-				FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
-				BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-			}
-		});
-		dialog.setContentView(R.layout.fragment_random_event_details);
-		return dialog;
-	}
+//	@NonNull @Override
+//	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//		BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+//		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//			@Override
+//			public void onShow(DialogInterface dialog) {
+//				BottomSheetDialog d = (BottomSheetDialog) dialog;
+//				FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+//				BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+//			}
+//		});
+//		dialog.setContentView(R.layout.fragment_random_event_details);
+//		return dialog;
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

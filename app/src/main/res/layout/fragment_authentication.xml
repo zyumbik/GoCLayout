@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".auth.FragmentAuthentication"
+                android:tag="dialog_authentication"
+                android:background="@android:color/white">
+
+    <!-- TODO: fix all dialogs' padding and margins -->
+
+    <TextView
+        android:id="@+id/fragment_auth_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:padding="@dimen/text_offset"
+        android:text="Authentication"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fragment_auth_input_email_layout"
+        android:layout_below="@id/fragment_auth_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/text_offset"
+        android:layout_marginLeft="@dimen/text_offset"
+        android:layout_marginRight="@dimen/text_offset"
+        android:layout_marginEnd="@dimen/text_offset"
+        android:theme="@style/AppBarTextLabel">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/fragment_auth_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_body"
+            android:hint="Your email address"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/fragment_auth_button_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_below="@id/fragment_auth_input_email_layout"
+        android:text="@string/button_submit"/>
+
+</RelativeLayout>

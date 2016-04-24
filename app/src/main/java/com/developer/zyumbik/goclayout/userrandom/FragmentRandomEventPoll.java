@@ -1,21 +1,14 @@
 package com.developer.zyumbik.goclayout.userrandom;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.R;
-import com.firebase.client.annotations.NotNull;
 
 public class FragmentRandomEventPoll extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -23,6 +16,10 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment implement
 	private Button skip, positive, negative;
 	private static String headerItem;
 	private PollButtonClickListener listener;
+
+	public FragmentRandomEventPoll() {
+		// Required empty public constructor
+	}
 
 	public void setListener(PollButtonClickListener listener) {
 		this.listener = listener;
@@ -34,28 +31,25 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment implement
 		return fragment;
 	}
 
-	@NonNull @Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-			@Override
-			public void onShow(DialogInterface dialog) {
-				BottomSheetDialog d = (BottomSheetDialog) dialog;
-				FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
-				BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-			}
-		});
-		dialog.setContentView(R.layout.fragment_random_event_poll);
-		return dialog;
-	}
-
-	public FragmentRandomEventPoll() {
-		// Required empty public constructor
-	}
+//	@NonNull @Override
+//	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//		BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+//		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//			@Override
+//			public void onShow(DialogInterface dialog) {
+//				BottomSheetDialog d = (BottomSheetDialog) dialog;
+//				FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+//				BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+//			}
+//		});
+//		dialog.setContentView(R.layout.fragment_random_event_poll);
+//		return dialog;
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
+
 		View v = inflater.inflate(R.layout.fragment_random_event_poll, container, false);
 		header = (TextView) v.findViewById(R.id.uRnd_fragment_bottom_sheet_poll_header);
 		skip = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_skip);
@@ -72,15 +66,17 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment implement
 
 	@Override
 	public void onClick(View v) {
-		if (v.equals(skip)) {
-			listener.onPollButtonClickSkip();
-		} else if (v.equals(positive)) {
-			listener.onPollButtonClickPositive();
-		} else if (v.equals(negative)) {
-			listener.onPollButtonClickNegative();
+		if (listener != null) {
+			if (v.equals(skip)) {
+				listener.onPollButtonClickSkip();
+			} else if (v.equals(positive)) {
+				listener.onPollButtonClickPositive();
+			} else if (v.equals(negative)) {
+				listener.onPollButtonClickNegative();
+			}
+			listener.onAnyButtonClick();
+			dismiss();
 		}
-		listener.onAnyButtonClick();
-		dismiss();
 	}
 
 	public interface PollButtonClickListener {
