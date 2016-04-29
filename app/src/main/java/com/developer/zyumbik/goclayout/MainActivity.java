@@ -3,16 +3,21 @@ package com.developer.zyumbik.goclayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
+import com.developer.zyumbik.goclayout.system.AppClass;
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
-import com.firebase.client.realtime.util.StringListReader;
+import com.firebase.client.FirebaseError;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,26 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private TextView brief1, brief2, brief3;
 	private CardView card1, card2, card3;
 	private int expanded = 1;
-	private FragmentAuthentication fragmentAuthentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-	    fragmentAuthentication = FragmentAuthentication.newInstance();
-	    fragmentAuthentication.setListener(new FragmentAuthentication.OnAuthFragmentInteractionListener() {
-		    @Override
-		    public void onSubmitClicked(String email) {
-			    Log.d("Email", email);
-		    }
-
-		    @Override
-		    public void onCancelled() {
-
-		    }
-	    });
-	    fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
 
 	    if (!new View(this).isInEditMode()) {
 
@@ -65,69 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		    changeState(brief3, full3);
 		    flip(arrow3);
 
-		    //Expand first
-		    arrow1.setOnClickListener(new View.OnClickListener() {
-			    @Override
-			    public void onClick(View v) {
-				    if (expanded != 1) {
-					    //Collapse currently expanded card
-					    if (expanded == 2) {
-						    changeState(brief2, full2);
-						    flip(arrow2);
-					    } else {
-						    changeState(brief3, full3);
-						    flip(arrow3);
-					    }
-					    expanded = 1;
-					    changeState(full1, brief1);
-					    animateCard(card1);
-					    flip(arrow1);
-				    }
-			    }
-		    });
-
-		    //Expand second
-		    arrow2.setOnClickListener(new View.OnClickListener() {
-			    @Override
-			    public void onClick(View v) {
-				    if (expanded != 2) {
-					    //Collapse currently expanded card
-					    if (expanded == 1) {
-						    changeState(brief1, full1);
-						    flip(arrow1);
-					    } else {
-						    changeState(brief3, full3);
-						    flip(arrow3);
-					    }
-					    expanded = 2;
-					    changeState(full2, brief2);
-					    animateCard(card2);
-					    flip(arrow2);
-				    }
-			    }
-		    });
-
-		    //Expand third
-		    arrow3.setOnClickListener(new View.OnClickListener() {
-			    @Override
-			    public void onClick(View v) {
-				    if (expanded != 3) {
-					    //Collapse currently expanded card
-					    if (expanded == 1) {
-						    changeState(brief1, full1);
-						    flip(arrow1);
-					    } else {
-						    changeState(brief2, full2);
-						    flip(arrow2);
-					    }
-					    expanded = 3;
-					    changeState(full3, brief3);
-					    animateCard(card3);
-					    flip(arrow3);
-				    }
-			    }
-		    });
-
+		    arrow1.setOnClickListener(this);
+		    arrow2.setOnClickListener(this);
+		    arrow3.setOnClickListener(this);
 		    card1.setOnClickListener(this);
 		    card2.setOnClickListener(this);
 		    card3.setOnClickListener(this);
@@ -156,6 +86,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		}
 	}
 
+	private void startCalculator() {
+		Intent i = new Intent(MainActivity.this, Calculator.class);
+		startActivity(i);
+	}
+
+	private void startUserRandomEvents() {
+		Intent i = new Intent(MainActivity.this, URandomEvents.class);
+		startActivity(i);
+	}
+
+	private void startHelp() {
+		// Start help activity from here
+	}
+
 	@Override
 	public void onClick(View v) {
 		// Random events
@@ -164,13 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				card1.animate().z(8).withEndAction(new Runnable() {
 					@Override
 					public void run() {
-						Intent i = new Intent(MainActivity.this, URandomEvents.class);
-						startActivity(i);
+						startUserRandomEvents();
 					}
 				}).start();
 			} else {
-				Intent i = new Intent(MainActivity.this, URandomEvents.class);
-				startActivity(i);
+				startUserRandomEvents();
 			}
 		}
 
@@ -180,13 +122,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				card2.animate().z(8).withEndAction(new Runnable() {
 					@Override
 					public void run() {
-						Intent i = new Intent(MainActivity.this, Calculator.class);
-						startActivity(i);
+						startCalculator();
 					}
 				}).start();
 			} else {
-				Intent i = new Intent(MainActivity.this, Calculator.class);
-				startActivity(i);
+				startCalculator();
 			}
 			return;
 		}
@@ -196,6 +136,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			if (Build.VERSION.SDK_INT > 20) {
 				card3.animate().z(8).start();
 			 }
+		}
+
+		if (v.equals(arrow1)) {
+			if (expanded != 1) {
+				//Collapse currently expanded card
+				if (expanded == 2) {
+					changeState(brief2, full2);
+					flip(arrow2);
+				} else {
+					changeState(brief3, full3);
+					flip(arrow3);
+				}
+				expanded = 1;
+				changeState(full1, brief1);
+				animateCard(card1);
+				flip(arrow1);
+			}
+		}
+
+		if (v.equals(arrow2)) {
+			if (expanded != 2) {
+				//Collapse currently expanded card
+				if (expanded == 1) {
+					changeState(brief1, full1);
+					flip(arrow1);
+				} else {
+					changeState(brief3, full3);
+					flip(arrow3);
+				}
+				expanded = 2;
+				changeState(full2, brief2);
+				animateCard(card2);
+				flip(arrow2);
+			}
+		}
+
+		if (v.equals(arrow3)) {
+			if (expanded != 3) {
+				//Collapse currently expanded card
+				if (expanded == 1) {
+					changeState(brief1, full1);
+					flip(arrow1);
+				} else {
+					changeState(brief2, full2);
+					flip(arrow2);
+				}
+				expanded = 3;
+				changeState(full3, brief3);
+				animateCard(card3);
+				flip(arrow3);
+			}
 		}
 
 	}
