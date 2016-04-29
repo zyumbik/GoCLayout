@@ -3,7 +3,6 @@ package com.developer.zyumbik.goclayout;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +43,7 @@ public class URandomEvents extends AppCompatActivity {
 	private Firebase ref = new Firebase(AppClass.FIREBASE_ADDRESS);
 	private Firebase refList = new Firebase(AppClass.PROBABILITIES_LIST_URL);
 	private Firebase.AuthResultHandler authResultHandler;
+	private boolean registered = false;
 
 	@Override
 	public void onBackPressed() {
@@ -74,6 +74,7 @@ public class URandomEvents extends AppCompatActivity {
 		recyclerView.setLayoutManager(layoutManager);
 		setRecyclerView();
 
+		registered = (ref.getAuth() == null);
 		setAuthResultHandler();
 		fetchEventsList();
 	}
@@ -83,6 +84,7 @@ public class URandomEvents extends AppCompatActivity {
 		fragmentAuthentication.setListener(new FragmentAuthentication.OnAuthFragmentInteractionListener() {
 			@Override
 			public void onSubmitClicked(String email, String password, boolean registered) {
+				URandomEvents.this.registered = registered;
 				if (registered) {
 					userLogin(email, password);
 				} else {
@@ -109,12 +111,12 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void onAuthenticated(AuthData authData) {
 				// Authenticated successfully with payload authData
-				if(!ref.getAuth().getProviderData().containsKey("list_answered")){
-					putAnswersList();
-					Log.d("Authentication", "wtf!");
-				} else {
+				if (registered) {
 					fetchAnswersList();
 					Log.d("Authentication", "success!");
+				} else {
+					putAnswersList();
+					Log.d("Authentication", "wtf!");
 				}
 			}
 			@Override
@@ -141,7 +143,6 @@ public class URandomEvents extends AppCompatActivity {
 				@Override
 				public void onSuccess() {
 					userLogin(email, password);
-					putAnswersList();
 					Log.d("SignUp", "success!");
 				}
 
@@ -168,10 +169,10 @@ public class URandomEvents extends AppCompatActivity {
 				fillAnswersListIfNull();
 				setRecyclerView();
 				progressDialog.dismiss();
-				if (ref.getAuth() == null) {
-					showAuthDialog();
-				} else {
+				if (registered) {
 					fetchAnswersList();
+				} else {
+					showAuthDialog();
 				}
 			}
 
@@ -215,7 +216,7 @@ public class URandomEvents extends AppCompatActivity {
 		fillAnswersListIfNull();
 		map.put("list_answered", answeredEvents);
 		ref.child("users").child(ref.getAuth().getUid()).setValue(map);
-		Log.d("List first element", ref.child("users").child(ref.getAuth().getUid()).toString());
+//		Log.d("List first element", ref.child("users").child(ref.getAuth().getUid()).toString());
 	}
 
 	private void finishActivityIn(final long milliseconds) {
@@ -285,7 +286,6 @@ public class URandomEvents extends AppCompatActivity {
 		} else {
 			poll = FragmentRandomEventPoll.newInstance(events.get(id));
 			poll.setListener(new FragmentRandomEventPoll.PollButtonClickListener() {
-
 				@Override
 				public void onAnyButtonClick() {
 					answeredEvents.set(id, true);
