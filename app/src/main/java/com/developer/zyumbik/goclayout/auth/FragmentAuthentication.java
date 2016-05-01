@@ -47,7 +47,6 @@ public class FragmentAuthentication extends AppCompatDialogFragment implements D
 				// TODO: add email address input verification
 				if (listener != null) {
 					listener.onSubmitClicked(email.getText().toString(), password.getText().toString(), checkBoxRegistered.isChecked());
-					dismiss();
 				}
 			}
 		});
@@ -56,7 +55,6 @@ public class FragmentAuthentication extends AppCompatDialogFragment implements D
 			public void onClick(View v) {
 				if (listener != null) {
 					listener.onForgotClicked(email.getText().toString());
-					dismiss();
 				}
 			}
 		});

@@ -2,13 +2,16 @@ package com.developer.zyumbik.goclayout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
 import com.developer.zyumbik.goclayout.system.AppClass;
@@ -31,6 +34,7 @@ import java.util.Map;
 
 public class URandomEvents extends AppCompatActivity {
 
+	private Context context;
 	private RecyclerView recyclerView;
 	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
@@ -61,11 +65,8 @@ public class URandomEvents extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		final Context context = this;
-		progressDialog = new ProgressDialog(context);
-		progressDialog.setTitle("Loading data");
-		progressDialog.setCancelable(false);
-		progressDialog.show();
+		context = this;
+		showDialogLoading();
 
 		// Recycler View initialization with non-empty array list
 		recyclerView = (RecyclerView) findViewById(R.id.uRnd_list);
@@ -74,9 +75,17 @@ public class URandomEvents extends AppCompatActivity {
 		recyclerView.setLayoutManager(layoutManager);
 		setRecyclerView();
 
-		registered = (ref.getAuth() == null);
+		registered = (ref.getAuth() != null);
 		setAuthResultHandler();
 		fetchEventsList();
+	}
+
+	private void onSuccessfulAuth() {
+		if (registered) {
+			Toast.makeText(URandomEvents.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+		} else {
+			Log.d("LOGIN", "Not registered omg wat?");
+		}
 	}
 
 	private void showAuthDialog() {
@@ -106,6 +115,65 @@ public class URandomEvents extends AppCompatActivity {
 		fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
 	}
 
+	private void dismissAuthDialog() {
+		if (fragmentAuthentication != null) {
+			fragmentAuthentication.dismiss();
+		}
+	}
+
+	private void showDialogDefaultPassword(final String email, final String password, final boolean login) {
+		final AlertDialog dialog;
+		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle(R.string.dialog_alert_default_password_title).setMessage(R.string.dialog_alert_default_password_message);
+		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (login) {
+					userLogin(email, "password");
+				} else {
+					userSignUp(email, "password");
+				}
+				dialog.dismiss();
+				showDialogLoading();
+			}
+		});
+		dialog = builder.create();
+		dialog.show();
+	}
+
+	private void showDialogLoading() {
+		progressDialog = new ProgressDialog(context);
+		progressDialog.setTitle("Loading data");
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
+
+	private void dismissDialogLoading() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+	}
+
+	private void showDialogError(String message) {
+		dismissDialogLoading();
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("Error").setMessage(message);
+		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
 	private void setAuthResultHandler() {
 		authResultHandler = new Firebase.AuthResultHandler() {
 			@Override
@@ -113,16 +181,17 @@ public class URandomEvents extends AppCompatActivity {
 				// Authenticated successfully with payload authData
 				if (registered) {
 					fetchAnswersList();
-					Log.d("Authentication", "success!");
 				} else {
 					putAnswersList();
-					Log.d("Authentication", "wtf!");
+					registered = (authData != null);
+					onSuccessfulAuth();
 				}
+				dismissDialogLoading();
+				dismissAuthDialog();
 			}
 			@Override
 			public void onAuthenticationError(FirebaseError firebaseError) {
-				// Authenticated failed with error firebaseError
-				Log.e("Firebase", "authentication error: " + firebaseError);
+				showDialogError("Can not authenticate: " + firebaseError.getMessage());
 			}
 		};
 	}
@@ -130,6 +199,7 @@ public class URandomEvents extends AppCompatActivity {
 	private void userLogin(final String email, final String password) {
 		if (password.length() == 0) {
 			// Ask if user wants to use default password
+			showDialogDefaultPassword(email, password, true);
 		} else {
 			ref.authWithPassword(email, password, authResultHandler);
 		}
@@ -138,17 +208,16 @@ public class URandomEvents extends AppCompatActivity {
 	private void userSignUp(final String email, final String password) {
 		if (password.length() == 0) {
 			// Ask if user wants to use default password
+			showDialogDefaultPassword(email, password, false);
 		} else {
 			ref.createUser(email, password, new Firebase.ResultHandler() {
 				@Override
 				public void onSuccess() {
 					userLogin(email, password);
-					Log.d("SignUp", "success!");
 				}
-
 				@Override
 				public void onError(FirebaseError firebaseError) {
-					Log.e("Firebase", "create user error: " + firebaseError);
+					showDialogError("Can not create an account: " + firebaseError.getMessage());
 				}
 			});
 		}
@@ -168,7 +237,7 @@ public class URandomEvents extends AppCompatActivity {
 				}
 				fillAnswersListIfNull();
 				setRecyclerView();
-				progressDialog.dismiss();
+				dismissDialogLoading();
 				if (registered) {
 					fetchAnswersList();
 				} else {
@@ -187,19 +256,24 @@ public class URandomEvents extends AppCompatActivity {
 	}
 
 	private void fetchAnswersList() {
-		answeredEvents = new ArrayList<>();
-		ref.child("users").child(ref.getAuth().getUid()).child("list_answered").addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-					answeredEvents.add(postSnapshot.getValue(Boolean.class));
-				}
-			}
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				Log.e("Firebase", "Can't fetch answers list: " + firebaseError.getMessage());
-			}
-		});
+		if (registered) {
+			answeredEvents = new ArrayList<>();
+			ref.child("users").child(ref.getAuth().getUid()).child("list_answered").
+					addListenerForSingleValueEvent(new ValueEventListener() {
+						@Override
+						public void onDataChange(DataSnapshot dataSnapshot) {
+							for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+								answeredEvents.add(postSnapshot.getValue(Boolean.class));
+							}
+							onSuccessfulAuth();
+						}
+
+						@Override
+						public void onCancelled(FirebaseError firebaseError) {
+							showDialogError("Can not get list of events: " + firebaseError.getMessage());
+						}
+					});
+		}
 	}
 
 	private void fillAnswersListIfNull() {
@@ -216,7 +290,6 @@ public class URandomEvents extends AppCompatActivity {
 		fillAnswersListIfNull();
 		map.put("list_answered", answeredEvents);
 		ref.child("users").child(ref.getAuth().getUid()).setValue(map);
-//		Log.d("List first element", ref.child("users").child(ref.getAuth().getUid()).toString());
 	}
 
 	private void finishActivityIn(final long milliseconds) {
@@ -225,7 +298,7 @@ public class URandomEvents extends AppCompatActivity {
 			public void run() {
 				try {
 					Thread.sleep(milliseconds);
-					progressDialog.dismiss();
+					dismissDialogLoading();
 					finish();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -242,7 +315,11 @@ public class URandomEvents extends AppCompatActivity {
 			adapter.setListener(new URandomListAdapter.ItemClickListener() {
 				@Override
 				public void onItemClick(URandomEventListItem item, int id) {
-					showBottomSheet(id);
+					if (registered) {
+						showBottomSheet(id);
+					} else {
+						Toast.makeText(URandomEvents.this, "Not yet signed in", Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 		} else {
@@ -290,7 +367,8 @@ public class URandomEvents extends AppCompatActivity {
 				public void onAnyButtonClick() {
 					answeredEvents.set(id, true);
 					showBottomSheet(id);
-					ref.child("users").child(ref.getAuth().getUid()).child("list_answered").child(String.valueOf(id)).setValue(true);
+					ref.child("users").child(ref.getAuth().getUid())
+							.child("list_answered").child(String.valueOf(id)).setValue(true);
 				}
 
 				@Override

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:text="Authentication"/>
+            android:text="@string/dialog_authentication_header"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/fragment_auth_input_email_layout"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_body"
-                android:hint="Email"
+                android:hint="@string/dialog_authentication_input_email"
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textRegular"
-            android:text="Already a user"/>
+            android:text="@string/dialog_authentication_checkbox_existing_user"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/fragment_auth_input_password_layout"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_body"
-                android:hint="Password"
+                android:hint="@string/dialog_authentication_input_password"
                 android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
