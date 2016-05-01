@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
@@ -469,7 +470,22 @@ public class URandomEvents extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.calculator, menu);
+		getMenuInflater().inflate(R.menu.menu_urnd_events, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_add_event:
+				return true;
+			case R.id.menu_change_password:
+				return true;
+			case R.id.menu_log_out:
+				showDialogConfirmation(3);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }

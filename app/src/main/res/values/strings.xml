@@ -63,5 +63,8 @@
     <string name="dialog_anonymous_auth_message">All features will be available but once your session times out, account will be permanently deleted</string>
     <string name="dialog_reset_password_title">Reset password?</string>
     <string name="dialog_reset_password_message">A link with further instructions will be sent to your email</string>
+    <string name="action_suggest_adding_event">Suggest adding event</string>
+    <string name="action_log_out">Log out</string>
+    <string name="action_change_password">Change password</string>
 
 </resources>
