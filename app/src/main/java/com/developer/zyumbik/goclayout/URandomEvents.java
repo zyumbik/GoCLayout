@@ -109,7 +109,7 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void onCancelled() {
 				// Ask whether user wants to log in anonymously
-				ref.authAnonymously(authResultHandler);
+				showDialogConfirmation();
 			}
 		});
 		fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
@@ -121,7 +121,8 @@ public class URandomEvents extends AppCompatActivity {
 		}
 	}
 
-	private void showDialogDefaultPassword(final String email, final String password, final boolean login) {
+	private void showDialogConfirmation(final String email, final boolean login) {
+		// Confirm whether user wants to sign in using default password
 		final AlertDialog dialog;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(R.string.dialog_alert_default_password_title).setMessage(R.string.dialog_alert_default_password_message);
@@ -141,6 +142,29 @@ public class URandomEvents extends AppCompatActivity {
 				}
 				dialog.dismiss();
 				showDialogLoading();
+			}
+		});
+		dialog = builder.create();
+		dialog.show();
+	}
+
+	private void showDialogConfirmation() {
+		// Confirm whether user wants to auth anonymously
+		final AlertDialog dialog;
+		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle(R.string.dialog_anonymous_auth_title).setMessage(R.string.dialog_anonymous_auth_message);
+		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				showAuthDialog();
+			}
+		});
+		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				showDialogLoading();
+				ref.authAnonymously(authResultHandler);
 			}
 		});
 		dialog = builder.create();
@@ -199,7 +223,7 @@ public class URandomEvents extends AppCompatActivity {
 	private void userLogin(final String email, final String password) {
 		if (password.length() == 0) {
 			// Ask if user wants to use default password
-			showDialogDefaultPassword(email, password, true);
+			showDialogConfirmation(email, true);
 		} else {
 			ref.authWithPassword(email, password, authResultHandler);
 		}
@@ -208,7 +232,7 @@ public class URandomEvents extends AppCompatActivity {
 	private void userSignUp(final String email, final String password) {
 		if (password.length() == 0) {
 			// Ask if user wants to use default password
-			showDialogDefaultPassword(email, password, false);
+			showDialogConfirmation(email, false);
 		} else {
 			ref.createUser(email, password, new Firebase.ResultHandler() {
 				@Override

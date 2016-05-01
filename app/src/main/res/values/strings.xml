@@ -59,8 +59,6 @@
     <string name="dialog_alert_default_password_message">Continue without password?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="dialog_alert_incorrect_password">Password you entered is incorrect</string>
-    <string name="dialog_user_does_not_exist">User does not exist</string>
     <string name="dialog_anonymous_auth_title">Authenticate anonymously?</string>
     <string name="dialog_anonymous_auth_message">All features will be available but once your session times out, account will be permanently deleted</string>
 
