@@ -16,6 +16,7 @@ import com.developer.zyumbik.goclayout.R;
 
 public class FragmentAuthentication extends AppCompatDialogFragment implements DialogInterface.OnCancelListener {
 
+	private TextInputEditText email;
 	private OnAuthFragmentInteractionListener listener;
 
 	public void setListener(OnAuthFragmentInteractionListener listener) {
@@ -38,7 +39,7 @@ public class FragmentAuthentication extends AppCompatDialogFragment implements D
 		View v = inflater.inflate(R.layout.fragment_authentication, container, false);
 		Button submit = (Button) v.findViewById(R.id.fragment_auth_button_submit);
 		Button forgot = (Button) v.findViewById(R.id.fragment_auth_button_forgot);
-		final TextInputEditText email = (TextInputEditText) v.findViewById(R.id.fragment_auth_input_email);
+		email = (TextInputEditText) v.findViewById(R.id.fragment_auth_input_email);
 		final TextInputEditText password = (TextInputEditText) v.findViewById(R.id.fragment_auth_input_password);
 		final CheckBox checkBoxRegistered = (CheckBox) v.findViewById(R.id.fragment_auth_checkbox_registered);
 		submit.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +60,10 @@ public class FragmentAuthentication extends AppCompatDialogFragment implements D
 			}
 		});
 		return v;
+	}
+
+	public String getEmail() {
+		return email.getText().toString();
 	}
 
 	@Override

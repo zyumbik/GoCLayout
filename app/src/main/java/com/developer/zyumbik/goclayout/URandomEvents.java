@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -84,7 +83,8 @@ public class URandomEvents extends AppCompatActivity {
 		if (registered) {
 			Toast.makeText(URandomEvents.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 		} else {
-			Log.d("LOGIN", "Not registered omg wat?");
+			showDialogError("Failed to login. Try again");
+			finishActivityIn(2000);
 		}
 	}
 
@@ -103,13 +103,13 @@ public class URandomEvents extends AppCompatActivity {
 
 			@Override
 			public void onForgotClicked(String email) {
-				// Reassure in password reset
+				showDialogConfirmation(2);
 			}
 
 			@Override
 			public void onCancelled() {
 				// Ask whether user wants to log in anonymously
-				showDialogConfirmation();
+				showDialogConfirmation(1);
 			}
 		});
 		fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
@@ -148,23 +148,69 @@ public class URandomEvents extends AppCompatActivity {
 		dialog.show();
 	}
 
-	private void showDialogConfirmation() {
-		// Confirm whether user wants to auth anonymously
+	private void showDialogConfirmation(final int type) {
+		// Multi-purpose dialog
 		final AlertDialog dialog;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle(R.string.dialog_anonymous_auth_title).setMessage(R.string.dialog_anonymous_auth_message);
-		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				showAuthDialog();
-			}
-		});
+		switch (type) {
+			case 1:
+				// Confirm whether user wants to auth anonymously
+				builder.setTitle(R.string.dialog_anonymous_auth_title).setMessage(R.string.dialog_anonymous_auth_message);
+				break;
+			case 2:
+				// Password reset confirmation
+				builder.setTitle(R.string.dialog_reset_password_title).setMessage(R.string.dialog_reset_password_message);
+				break;
+			case 3:
+				// User log out confirmation
+				break;
+			default:
+				break;
+		}
 		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				showDialogLoading();
-				ref.authAnonymously(authResultHandler);
+				switch (type) {
+					case 1:
+						// Authenticate anonymously
+						showDialogLoading();
+						ref.authAnonymously(authResultHandler);
+						break;
+					case 2:
+						ref.resetPassword(fragmentAuthentication.getEmail(), new Firebase.ResultHandler() {
+							@Override
+							public void onSuccess() {
+								Toast.makeText(URandomEvents.this, "Password reset link sent to your email", Toast.LENGTH_SHORT).show();
+							}
+							@Override
+							public void onError(FirebaseError firebaseError) {
+								showDialogError("Can not reset password: " + firebaseError.getMessage());
+							}
+						});
+						break;
+					case 3:
+						break;
+					default:
+						break;
+				}
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (type) {
+					case 1:
+						showAuthDialog();
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					default:
+						break;
+				}
+				dialog.dismiss();
 			}
 		});
 		dialog = builder.create();
