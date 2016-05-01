@@ -4,13 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
@@ -47,7 +50,12 @@ public class URandomEvents extends AppCompatActivity {
 	private Firebase ref = new Firebase(AppClass.FIREBASE_ADDRESS);
 	private Firebase refList = new Firebase(AppClass.PROBABILITIES_LIST_URL);
 	private Firebase.AuthResultHandler authResultHandler;
+	private Firebase.ResultHandler resultHandler;
 	private boolean registered = false;
+
+	private enum ConfirmationDialogType{ANONYMOUS_AUTH, PASSWORD_RESET, LOG_OUT}
+	private enum ResultHandlerType{PASSWORD_CHANGE, PASSWORD_RESET}
+	private ResultHandlerType currentHandlerType;
 
 	@Override
 	public void onBackPressed() {
@@ -58,7 +66,6 @@ public class URandomEvents extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
-		ref.unauth();
 
 		// TODO: Action bar and back button
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
@@ -77,6 +84,7 @@ public class URandomEvents extends AppCompatActivity {
 
 		registered = (ref.getAuth() != null);
 		setAuthResultHandler();
+		setResultHandler();
 		fetchEventsList();
 	}
 
@@ -104,13 +112,13 @@ public class URandomEvents extends AppCompatActivity {
 
 			@Override
 			public void onForgotClicked(String email) {
-				showDialogConfirmation(2);
+				showDialogConfirmation(ConfirmationDialogType.PASSWORD_RESET);
 			}
 
 			@Override
 			public void onCancelled() {
 				// Ask whether user wants to log in anonymously
-				showDialogConfirmation(1);
+				showDialogConfirmation(ConfirmationDialogType.ANONYMOUS_AUTH);
 			}
 		});
 		fragmentAuthentication.show(this.getSupportFragmentManager(), "dialog_authentication");
@@ -122,11 +130,40 @@ public class URandomEvents extends AppCompatActivity {
 		}
 	}
 
+	private void showDialogChangePassword() {
+		final AlertDialog dialog;
+		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		LayoutInflater inflater = URandomEvents.this.getLayoutInflater();
+		final View v = inflater.inflate(R.layout.dialog_change_password, null);
+		builder.setTitle(R.string.dialog_reset_password_title).setView(v);
+		currentHandlerType = ResultHandlerType.PASSWORD_CHANGE;
+		builder.setPositiveButton(R.string.dialog_change_password_button, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ref.changePassword(ref.getAuth().getProviderData().get("email").toString(),
+						((TextInputEditText)v.findViewById(R.id.dialog_reset_old_password)).getText().toString(),
+						((TextInputEditText)v.findViewById(R.id.dialog_reset_old_password)).getText().toString(),
+						resultHandler);
+				dialog.dismiss();
+				showDialogLoading();
+			}
+		});
+		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog = builder.create();
+		dialog.show();
+	}
+
 	private void showDialogConfirmation(final String email, final boolean login) {
 		// Confirm whether user wants to sign in using default password
 		final AlertDialog dialog;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle(R.string.dialog_alert_default_password_title).setMessage(R.string.dialog_alert_default_password_message);
+		builder.setTitle(R.string.dialog_alert_default_password_title)
+				.setMessage(R.string.dialog_alert_default_password_message);
 		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -149,21 +186,26 @@ public class URandomEvents extends AppCompatActivity {
 		dialog.show();
 	}
 
-	private void showDialogConfirmation(final int type) {
+	private void showDialogConfirmation(final ConfirmationDialogType type) {
 		// Multi-purpose dialog
 		final AlertDialog dialog;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		switch (type) {
-			case 1:
+			case ANONYMOUS_AUTH:
 				// Confirm whether user wants to auth anonymously
-				builder.setTitle(R.string.dialog_anonymous_auth_title).setMessage(R.string.dialog_anonymous_auth_message);
+				builder.setTitle(R.string.dialog_anonymous_auth_title)
+						.setMessage(R.string.dialog_anonymous_auth_message);
 				break;
-			case 2:
+			case PASSWORD_RESET:
 				// Password reset confirmation
-				builder.setTitle(R.string.dialog_reset_password_title).setMessage(R.string.dialog_reset_password_message);
+				currentHandlerType = ResultHandlerType.PASSWORD_RESET;
+				builder.setTitle(R.string.dialog_reset_password_title)
+						.setMessage(R.string.dialog_reset_password_message);
 				break;
-			case 3:
+			case LOG_OUT:
 				// User log out confirmation
+				builder.setTitle(R.string.dialog_log_out_title)
+					.setMessage(R.string.dialog_log_out_message);
 				break;
 			default:
 				break;
@@ -171,25 +213,21 @@ public class URandomEvents extends AppCompatActivity {
 		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				showDialogLoading();
 				switch (type) {
-					case 1:
-						// Authenticate anonymously
+					case ANONYMOUS_AUTH:
 						showDialogLoading();
 						ref.authAnonymously(authResultHandler);
 						break;
-					case 2:
-						ref.resetPassword(fragmentAuthentication.getEmail(), new Firebase.ResultHandler() {
-							@Override
-							public void onSuccess() {
-								Toast.makeText(URandomEvents.this, "Password reset link sent to your email", Toast.LENGTH_SHORT).show();
-							}
-							@Override
-							public void onError(FirebaseError firebaseError) {
-								showDialogError("Can not reset password: " + firebaseError.getMessage());
-							}
-						});
+					case PASSWORD_RESET:
+						ref.resetPassword(fragmentAuthentication.getEmail(), resultHandler);
 						break;
-					case 3:
+					case LOG_OUT:
+						ref.unauth();
+						showDialogLoading();
+						Toast.makeText(URandomEvents.this,
+								"Successfully logged out", Toast.LENGTH_SHORT).show();
+						finishActivityIn(500);
 						break;
 					default:
 						break;
@@ -201,12 +239,12 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				switch (type) {
-					case 1:
+					case ANONYMOUS_AUTH:
 						showAuthDialog();
 						break;
-					case 2:
+					case PASSWORD_RESET:
 						break;
-					case 3:
+					case LOG_OUT:
 						break;
 					default:
 						break;
@@ -263,6 +301,42 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void onAuthenticationError(FirebaseError firebaseError) {
 				showDialogError("Can not authenticate: " + firebaseError.getMessage());
+			}
+		};
+	}
+
+	public void setResultHandler() {
+		resultHandler = new Firebase.ResultHandler() {
+			@Override
+			public void onSuccess() {
+				switch (currentHandlerType) {
+					case PASSWORD_CHANGE:
+						dismissDialogLoading();
+						Toast.makeText(URandomEvents.this,
+								"Password was changed successfully", Toast.LENGTH_SHORT).show();
+						break;
+					case PASSWORD_RESET:
+						Toast.makeText(URandomEvents.this,
+								"Password reset link was sent to your email", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+				dismissDialogLoading();
+			}
+
+			@Override
+			public void onError(FirebaseError firebaseError) {
+				switch (currentHandlerType) {
+					case PASSWORD_CHANGE:
+						showDialogError("Can not change password: " + firebaseError.getMessage());
+						break;
+					case PASSWORD_RESET:
+						showDialogError("Can not reset password: " + firebaseError.getMessage());
+						break;
+					default:
+						break;
+				}
 			}
 		};
 	}
@@ -480,9 +554,10 @@ public class URandomEvents extends AppCompatActivity {
 			case R.id.menu_add_event:
 				return true;
 			case R.id.menu_change_password:
+				showDialogChangePassword();
 				return true;
 			case R.id.menu_log_out:
-				showDialogConfirmation(3);
+				showDialogConfirmation(ConfirmationDialogType.LOG_OUT);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

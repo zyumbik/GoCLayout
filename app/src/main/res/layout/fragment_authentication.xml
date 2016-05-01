@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textRegular"
+            style="@style/AppTheme"
             android:text="@string/dialog_authentication_checkbox_existing_user"/>
 
         <android.support.design.widget.TextInputLayout

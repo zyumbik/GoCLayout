@@ -60,11 +60,19 @@
     <string name="dialog_alert_default_password_title">Continue without password?</string>
     <string name="dialog_alert_default_password_message">Continue without password?</string>
     <string name="dialog_anonymous_auth_title">Authenticate anonymously?</string>
-    <string name="dialog_anonymous_auth_message">All features will be available but once your session times out, account will be permanently deleted</string>
+    <string name="dialog_anonymous_auth_message">All features will be available but once your session times out,
+        account will be permanently deleted</string>
     <string name="dialog_reset_password_title">Reset password?</string>
     <string name="dialog_reset_password_message">A link with further instructions will be sent to your email</string>
     <string name="action_suggest_adding_event">Suggest adding event</string>
     <string name="action_log_out">Log out</string>
     <string name="action_change_password">Change password</string>
+    <string name="dialog_change_password_title">Change password</string>
+    <string name="dialog_change_password_button">Change</string>
+    <string name="dialog_reset_old_password">Old password</string>
+    <string name="dialog_reset_new_password">New password</string>
+    <string name="dialog_log_out_title">Log out?</string>
+    <string name="dialog_log_out_message">You will be able to log in using your email and password.
+        If you logged in anonymously, you will loose all your data.</string>
 
 </resources>
