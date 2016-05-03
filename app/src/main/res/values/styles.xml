@@ -4,14 +4,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
     </style>
 
-    <style name="AppBarTextLabel" parent="Theme.AppCompat.Light">
+    <style name="AppBarTextLabel" parent="AppTheme">
         <item name="android:textColor">@color/textRegular</item>
         <item name="android:textColorHint">@color/textSecondary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccentSecondary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

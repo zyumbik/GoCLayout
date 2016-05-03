@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import com.developer.zyumbik.goclayout.R;
 
-public class FragmentAuthentication extends AppCompatDialogFragment implements DialogInterface.OnCancelListener {
+public class FragmentAuthentication extends AppCompatDialogFragment {
 
 	private TextInputEditText email;
 	private OnAuthFragmentInteractionListener listener;
@@ -45,7 +45,6 @@ public class FragmentAuthentication extends AppCompatDialogFragment implements D
 		submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO: add email address input verification
 				if (listener != null) {
 					listener.onSubmitClicked(email.getText().toString(), password.getText().toString(), checkBoxRegistered.isChecked());
 				}

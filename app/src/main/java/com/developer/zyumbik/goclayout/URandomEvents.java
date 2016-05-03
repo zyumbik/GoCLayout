@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,7 @@ import java.util.Map;
 public class URandomEvents extends AppCompatActivity {
 
 	private Context context;
+	private ContextThemeWrapper contextThemeWrapper;
 	private RecyclerView recyclerView;
 	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
@@ -89,6 +91,7 @@ public class URandomEvents extends AppCompatActivity {
 	}
 
 	private void onSuccessfulAuth() {
+		dismissDialogLoading();
 		if (registered) {
 			Toast.makeText(URandomEvents.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 		} else {
@@ -142,7 +145,7 @@ public class URandomEvents extends AppCompatActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				ref.changePassword(ref.getAuth().getProviderData().get("email").toString(),
 						((TextInputEditText)v.findViewById(R.id.dialog_reset_old_password)).getText().toString(),
-						((TextInputEditText)v.findViewById(R.id.dialog_reset_old_password)).getText().toString(),
+						((TextInputEditText)v.findViewById(R.id.dialog_reset_new_password)).getText().toString(),
 						resultHandler);
 				dialog.dismiss();
 				showDialogLoading();
@@ -195,6 +198,12 @@ public class URandomEvents extends AppCompatActivity {
 				// Confirm whether user wants to auth anonymously
 				builder.setTitle(R.string.dialog_anonymous_auth_title)
 						.setMessage(R.string.dialog_anonymous_auth_message);
+				builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						showAuthDialog();
+					}
+				});
 				break;
 			case PASSWORD_RESET:
 				// Password reset confirmation
@@ -216,7 +225,6 @@ public class URandomEvents extends AppCompatActivity {
 				showDialogLoading();
 				switch (type) {
 					case ANONYMOUS_AUTH:
-						showDialogLoading();
 						ref.authAnonymously(authResultHandler);
 						break;
 					case PASSWORD_RESET:
