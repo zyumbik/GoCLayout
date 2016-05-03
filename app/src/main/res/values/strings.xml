@@ -74,5 +74,6 @@
     <string name="dialog_log_out_title">Log out?</string>
     <string name="dialog_log_out_message">You will be able to log in using your email and password.
         If you logged in anonymously, you will loose all your data.</string>
+    <string name="hidden_percentage">\??%</string>
 
 </resources>

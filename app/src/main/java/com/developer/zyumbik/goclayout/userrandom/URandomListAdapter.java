@@ -14,14 +14,25 @@ import java.util.List;
 public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.ViewHolder> {
 
 	private List<URandomEventListItem> events;
+	private List<Boolean> answeredEvents;
 	private ItemClickListener listener;
 
 	public URandomListAdapter(List<URandomEventListItem> events) {
 		this.events = events;
 	}
 
+	public URandomListAdapter(List<URandomEventListItem> events, List<Boolean> answeredEvents) {
+		this.events = events;
+		this.answeredEvents = answeredEvents;
+	}
+
 	public void setListener(ItemClickListener listener) {
 		this.listener = listener;
+	}
+
+	public void setAnsweredEvent(Boolean event, int id) {
+		answeredEvents.set(id, event);
+		notifyItemChanged(id);
 	}
 
 	public void replaceListItem(URandomEventListItem item, int index) {
@@ -41,10 +52,17 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 			description = (TextView) v.findViewById(R.id.uRnd_list_item_description);
 		}
 
-		public void initializeHolder(URandomEventListItem item) {
+		public void initializeHolder(int position) {
+			item = events.get(position);
 			header.setText(item.getHeader());
 			description.setText(item.getDescription());
-			percentage.setText(item.getProbabilityPercentRound());
+			if (answeredEvents != null) {
+				if (answeredEvents.get(position)) {
+					percentage.setText(item.getProbabilityPercentRound());
+					return;
+				}
+			}
+			percentage.setText(R.string.hidden_percentage);
 		}
 
 		@Override
@@ -65,8 +83,7 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 	@Override
 	public void onBindViewHolder(URandomListAdapter.ViewHolder holder, int position) {
 		if (events.get(position).hashCode() != 0) {
-			holder.initializeHolder(events.get(position));
-			holder.item = events.get(position);
+			holder.initializeHolder(position);
 		} else {
 			events.remove(position);
 		}

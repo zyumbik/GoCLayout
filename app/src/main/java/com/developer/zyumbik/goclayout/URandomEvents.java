@@ -39,7 +39,6 @@ import java.util.Map;
 public class URandomEvents extends AppCompatActivity {
 
 	private Context context;
-	private ContextThemeWrapper contextThemeWrapper;
 	private RecyclerView recyclerView;
 	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
@@ -91,6 +90,7 @@ public class URandomEvents extends AppCompatActivity {
 	}
 
 	private void onSuccessfulAuth() {
+		setRecyclerView();
 		dismissDialogLoading();
 		if (registered) {
 			Toast.makeText(URandomEvents.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
@@ -417,6 +417,7 @@ public class URandomEvents extends AppCompatActivity {
 						public void onDataChange(DataSnapshot dataSnapshot) {
 							for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 								answeredEvents.add(postSnapshot.getValue(Boolean.class));
+								adapter.setAnsweredEvent(answeredEvents.get(answeredEvents.size() - 1), answeredEvents.size() - 1);
 							}
 							onSuccessfulAuth();
 						}
@@ -463,7 +464,11 @@ public class URandomEvents extends AppCompatActivity {
 
 	private void setRecyclerView() {
 		if (events != null) {
-			adapter = new URandomListAdapter(events);
+			if (answeredEvents == null) {
+				adapter = new URandomListAdapter(events);
+			} else {
+				adapter = new URandomListAdapter(events, answeredEvents);
+			}
 			recyclerView.setAdapter(adapter);
 			adapter.setListener(new URandomListAdapter.ItemClickListener() {
 				@Override
@@ -498,7 +503,9 @@ public class URandomEvents extends AppCompatActivity {
 
 			@Override
 			public void onComplete(FirebaseError firebaseError, boolean b, DataSnapshot dataSnapshot) {
-
+				if (firebaseError != null) {
+					showDialogError(firebaseError.getMessage());
+				}
 			}
 		});
 	}
@@ -519,6 +526,7 @@ public class URandomEvents extends AppCompatActivity {
 				@Override
 				public void onAnyButtonClick() {
 					answeredEvents.set(id, true);
+					adapter.setAnsweredEvent(true, id);
 					showBottomSheet(id);
 					ref.child("users").child(ref.getAuth().getUid())
 							.child("list_answered").child(String.valueOf(id)).setValue(true);
