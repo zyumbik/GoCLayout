@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".auth.FragmentAuthentication"
+              android:tag="dialog_authentication"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <!-- TODO: fix all dialogs' padding and margins -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialog_content_area_padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fragment_auth_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="@string/dialog_authentication_header"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fragment_auth_input_email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp"
+            android:theme="@style/AppBarTextLabel">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fragment_auth_input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                android:hint="@string/dialog_authentication_input_email"
+                android:inputType="textEmailAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/fragment_auth_checkbox_registered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textRegular"
+            android:theme="@style/AppTheme"
+            android:text="@string/dialog_authentication_checkbox_existing_user"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fragment_auth_input_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppBarTextLabel">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fragment_auth_input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                android:hint="@string/dialog_authentication_input_password"
+                android:inputType="textPassword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="8dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_auth_button_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:text="Forgot password"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_auth_button_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:text="@string/button_submit"/>
+
+    </LinearLayout>
+</LinearLayout>

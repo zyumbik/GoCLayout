@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/uRnd_fragment_bottom_sheet_graph_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/bottom_sheet_vertical_margin"
+    android:layout_marginBottom="@dimen/bottom_sheet_vertical_margin"
+    android:orientation="vertical"
+    android:layout_gravity="bottom"
+    android:tag="dialog_event_details"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/uRnd_fragment_bottom_sheet_details_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:padding="@dimen/text_offset"
+        android:text="Headline"/>
+
+    <TextView
+        android:id="@+id/uRnd_fragment_bottom_sheet_details_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:padding="@dimen/text_offset"
+        android:text="Description"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/uRnd_fragment_bottom_sheet_graph_pplYes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3454"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/uRnd_fragment_bottom_sheet_graph_percentage"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="34.54%"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/text_offset"
+            android:paddingStart="@dimen/text_offset"
+            android:paddingRight="@dimen/text_offset"
+            android:paddingEnd="@dimen/text_offset"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textRegular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="+"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/text_offset"
+            android:paddingStart="@dimen/text_offset"
+            android:paddingRight="@dimen/text_offset"
+            android:paddingEnd="@dimen/text_offset"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/textRegular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="–"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

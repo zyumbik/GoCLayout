@@ -1,9 +1,18 @@
 <resources>
-    <string name="app_name">GoCLayout</string>
-    <string name="button1_header_main">Your chances are…</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in rutrum urna, vel imperdiet lorem. Donec sed quam id justo dignissim tempor. Cras molestie diam non metus condimentum lobortis. Pellentesque nec lorem vitae leo tristique pretium quis vel nisi. Quisque pellentesque id est a sagittis.</string>
+    <string name="app_name">The Game of Chance</string>
 
-    <!--Main menu-->
+    <!-- What is it? -->
+    <string name="button1_header_main">Your chances are…</string>
+    <!-- Temporary -->
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in
+        rutrum urna, vel imperdiet lorem. Donec sed quam id justo dignissim tempor. Cras molestie
+        diam non metus condimentum lobortis. Pellentesque nec lorem vitae leo tristique pretium
+        quis vel nisi. Quisque pellentesque id est a sagittis.</string>
+
+    <!-- General -->
+    <string name="button_share">Share</string>
+
+    <!-- Main menu -->
     <string name="title1">Statistics data</string>
     <string name="title2">Calculate probability</string>
     <string name="title3">Help/About</string>
@@ -13,5 +22,58 @@
     <string name="full1">Here you will find probabilities of random events which occur in our world very often.</string>
     <string name="full2">You are now able to solve main probability theory problems just in seconds! Wow!</string>
     <string name="full3">Are you curious or just confused with the app? Here you go then! Learn more about probability theory and the app.</string>
+
+    <!-- Random events -->
+    <string name="title_activity_random_events">Random events</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_probability_action">Add</string>
+    <string name="user_random_events_activity_name">Random events</string>
+    <string name="firebase_fetch_data_error_message">There was an error connecting to the database. Try again, please.\n</string>
+
+    <!-- Calculator -->
+    <string name="calculator_activity_name">Calculate probability</string>
+    <string name="calculator_menu_checkbox">Independent events</string>
+    <string name="calculator_menu_events">Number of events occurred</string>
+    <string name="calculator_menu_outcomes">Number of possible outcomes</string>
+    <string name="random_number_generator">Random generator</string>
+    <!-- List of probabilities in the calculator -->
+    <string name="calc_list_probabilities_header">Event probabilities</string>
+    <string name="calc_list_separator">:</string>
+    <string name="remove_item">Remove item</string>
+
+    <!-- User Random events -->
+    <string name="button_false">false</string>
+    <string name="button_true">true</string>
+    <string name="uRandom_event_text_question">This event is true for you, isn\'t it?</string>
+    <string name="button_poll_skip">Show results</string>
+
+    <!-- Authentication -->
+    <string name="button_submit">Submit</string>
+    <string name="dialog_authentication_header">Authentication</string>
+    <string name="dialog_authentication_input_email">Email</string>
+    <string name="dialog_authentication_input_password">Password</string>
+    <string name="dialog_authentication_checkbox_existing_user">Already a user</string>
+
+    <!-- Authentication dialogs for stupid users -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_alert_default_password_title">Continue without password?</string>
+    <string name="dialog_alert_default_password_message">Continue without password?</string>
+    <string name="dialog_anonymous_auth_title">Authenticate anonymously?</string>
+    <string name="dialog_anonymous_auth_message">All features will be available but once your session times out,
+        account will be permanently deleted</string>
+    <string name="dialog_reset_password_title">Reset password?</string>
+    <string name="dialog_reset_password_message">A link with further instructions will be sent to your email</string>
+    <string name="action_suggest_adding_event">Suggest adding event</string>
+    <string name="action_log_out">Log out</string>
+    <string name="action_change_password">Change password</string>
+    <string name="dialog_change_password_title">Change password</string>
+    <string name="dialog_change_password_button">Change</string>
+    <string name="dialog_reset_old_password">Old password</string>
+    <string name="dialog_reset_new_password">New password</string>
+    <string name="dialog_log_out_title">Log out?</string>
+    <string name="dialog_log_out_message">You will be able to log in using your email and password.
+        If you logged in anonymously, you will loose all your data.</string>
+    <string name="hidden_percentage">\??%</string>
 
 </resources>

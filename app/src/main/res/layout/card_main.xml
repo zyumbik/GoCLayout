@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_title"
-            android:textColor="@color/text_regular"
+            android:textColor="@color/textRegular"
             android:text="This is the title"/>
 
         <ImageButton
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_body"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/textSecondary"
             android:layout_toStartOf="@id/arrow"
             android:layout_toLeftOf="@id/arrow"
             android:layout_below="@id/title"
