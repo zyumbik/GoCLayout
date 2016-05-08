@@ -57,9 +57,11 @@ public class URandomListAdapter extends RecyclerView.Adapter<URandomListAdapter.
 			header.setText(item.getHeader());
 			description.setText(item.getDescription());
 			if (answeredEvents != null) {
-				if (answeredEvents.get(position)) {
-					percentage.setText(item.getProbabilityPercentRound());
-					return;
+				if (answeredEvents.size() == events.size()) {
+					if (answeredEvents.get(position)) {
+						percentage.setText(item.getProbabilityPercentRound());
+						return;
+					}
 				}
 			}
 			percentage.setText(R.string.hidden_percentage);

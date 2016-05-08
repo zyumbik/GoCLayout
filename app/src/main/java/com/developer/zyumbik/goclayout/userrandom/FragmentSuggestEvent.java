@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.R;
 
@@ -62,6 +63,8 @@ public class FragmentSuggestEvent extends AppCompatDialogFragment{
 							if (listener != null) {
 								listener.onSaveClicked(title.getText().toString(), title.getText().toString());
 							}
+						} else {
+							Toast.makeText(getContext(), R.string.text_field_input_overflow, Toast.LENGTH_SHORT).show();
 						}
 						break;
 				}

@@ -80,5 +80,6 @@
     <string name="fragment_suggest_hint_title">Title</string>
     <string name="fragment_suggest_hint_description">Description</string>
     <string name="save">Save</string>
+    <string name="text_field_input_overflow">Too much text</string>
 
 </resources>

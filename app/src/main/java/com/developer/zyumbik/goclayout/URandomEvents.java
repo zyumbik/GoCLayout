@@ -329,6 +329,7 @@ public class URandomEvents extends AppCompatActivity {
 			}
 			@Override
 			public void onAuthenticationError(FirebaseError firebaseError) {
+				dismissDialogLoading();
 				showDialogError("Can not authenticate: " + firebaseError.getMessage());
 			}
 		};
@@ -338,9 +339,9 @@ public class URandomEvents extends AppCompatActivity {
 		resultHandler = new Firebase.ResultHandler() {
 			@Override
 			public void onSuccess() {
+				dismissDialogLoading();
 				switch (currentHandlerType) {
 					case PASSWORD_CHANGE:
-						dismissDialogLoading();
 						Toast.makeText(URandomEvents.this,
 								"Password was changed successfully", Toast.LENGTH_SHORT).show();
 						break;
@@ -356,6 +357,7 @@ public class URandomEvents extends AppCompatActivity {
 
 			@Override
 			public void onError(FirebaseError firebaseError) {
+				dismissDialogLoading();
 				switch (currentHandlerType) {
 					case PASSWORD_CHANGE:
 						showDialogError("Can not change password: " + firebaseError.getMessage());
@@ -375,6 +377,7 @@ public class URandomEvents extends AppCompatActivity {
 			// Ask if user wants to use default password
 			showDialogConfirmation(email, true);
 		} else {
+			showDialogLoading();
 			ref.authWithPassword(email, password, authResultHandler);
 		}
 	}
@@ -384,6 +387,7 @@ public class URandomEvents extends AppCompatActivity {
 			// Ask if user wants to use default password
 			showDialogConfirmation(email, false);
 		} else {
+			showDialogLoading();
 			ref.createUser(email, password, new Firebase.ResultHandler() {
 				@Override
 				public void onSuccess() {
@@ -391,6 +395,7 @@ public class URandomEvents extends AppCompatActivity {
 				}
 				@Override
 				public void onError(FirebaseError firebaseError) {
+					dismissDialogLoading();
 					showDialogError("Can not create an account: " + firebaseError.getMessage());
 				}
 			});
@@ -438,7 +443,8 @@ public class URandomEvents extends AppCompatActivity {
 						public void onDataChange(DataSnapshot dataSnapshot) {
 							for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 								answeredEvents.add(postSnapshot.getValue(Boolean.class));
-								adapter.setAnsweredEvent(answeredEvents.get(answeredEvents.size() - 1), answeredEvents.size() - 1);
+								adapter.setAnsweredEvent(answeredEvents.get(answeredEvents.size() - 1),
+										answeredEvents.size() - 1);
 							}
 							onSuccessfulAuth();
 						}
