@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	private void startHelp() {
-		// Start help activity from here
+		Intent i = new Intent(MainActivity.this, Help.class);
+		startActivity(i);
 	}
 
 	@Override
@@ -134,8 +135,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		// Help/FAQ/About/Learn
 		if (v.equals(card3)) {
 			if (Build.VERSION.SDK_INT > 20) {
-				card3.animate().z(8).start();
-			 }
+				card3.animate().z(8).withEndAction(new Runnable() {
+					@Override
+					public void run() {
+						startHelp();
+					}
+				}).start();
+			 } else {
+				startHelp();
+			}
 		}
 
 		if (v.equals(arrow1)) {

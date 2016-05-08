@@ -81,5 +81,7 @@
     <string name="fragment_suggest_hint_description">Description</string>
     <string name="save">Save</string>
     <string name="text_field_input_overflow">Too much text</string>
+    <string name="help_text">This is help</string>
+    <string name="activity_label_help">Help</string>
 
 </resources>
