@@ -5,92 +5,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.developer.zyumbik.goclayout.Calculator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbarABLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:theme="@style/AppTheme">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbarCTLayout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/calculator_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+        <android.support.v7.widget.Toolbar
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/calculator_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/layout_input_calculator"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="32dp"
-            android:paddingStart="32dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="56dp"
-            android:paddingRight="16dp"
-            android:paddingEnd="16dp">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:id="@+id/layout_input_calculator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/AppBarTextLabel">
+                android:orientation="vertical"
+                android:paddingLeft="32dp"
+                android:paddingStart="32dp"
+                android:paddingBottom="56dp"
+                android:paddingRight="16dp"
+                android:paddingEnd="16dp">
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/inputOutcomes"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_body"
-                    android:hint="@string/calculator_menu_outcomes"
-                    android:maxLength="10"
-                    android:inputType="number"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    android:theme="@style/AppBarTextLabel">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:theme="@style/AppBarTextLabel">
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/inputOutcomes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_body"
+                        android:hint="@string/calculator_menu_outcomes"
+                        android:maxLength="10"
+                        android:inputType="number"/>
+                </android.support.design.widget.TextInputLayout>
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/inputEvents"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_body"
-                    android:hint="@string/calculator_menu_events"
-                    android:maxLength="10"
-                    android:inputType="number"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:theme="@style/AppBarTextLabel">
 
-            <CheckBox
-                android:text="@string/calculator_menu_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="@dimen/text_body"/>
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/inputEvents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_body"
+                        android:hint="@string/calculator_menu_events"
+                        android:maxLength="10"
+                        android:inputType="number"/>
+                </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
+                <CheckBox
+                    android:text="@string/calculator_menu_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/text_body"/>
 
-    </android.support.v7.widget.Toolbar>
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

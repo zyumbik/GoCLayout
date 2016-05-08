@@ -77,5 +77,8 @@
         If you logged in anonymously, you will loose all your data.</string>
     <string name="hidden_percentage">\??%</string>
     <string name="dialog_suggest_event_title">Suggest adding event</string>
+    <string name="fragment_suggest_hint_title">Title</string>
+    <string name="fragment_suggest_hint_description">Description</string>
+    <string name="save">Save</string>
 
 </resources>

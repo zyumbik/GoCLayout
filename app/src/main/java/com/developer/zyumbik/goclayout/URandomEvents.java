@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +20,7 @@ import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
 import com.developer.zyumbik.goclayout.system.AppClass;
 import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventDetails;
 import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
+import com.developer.zyumbik.goclayout.userrandom.FragmentSuggestEvent;
 import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
 import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
 import com.firebase.client.AuthData;
@@ -48,6 +48,7 @@ public class URandomEvents extends AppCompatActivity {
 	private FragmentRandomEventDetails details;
 	private FragmentRandomEventPoll poll;
 	private FragmentAuthentication fragmentAuthentication;
+	private FragmentSuggestEvent suggestEvent;
 	private Firebase ref = new Firebase(AppClass.FIREBASE_ADDRESS);
 	private Firebase refList = new Firebase(AppClass.PROBABILITIES_LIST_URL);
 	private Firebase.AuthResultHandler authResultHandler;
@@ -162,29 +163,23 @@ public class URandomEvents extends AppCompatActivity {
 	}
 
 	private void showDialogSuggest() {
-		final AlertDialog dialog;
-		final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AppTheme_NoActionBar);
-		LayoutInflater inflater = URandomEvents.this.getLayoutInflater();
-		final View v = inflater.inflate(R.layout.fragment_suggest_event, null);
-		builder.setTitle(R.string.dialog_reset_password_title).setView(v);
-		builder.setPositiveButton(R.string.button_submit, new DialogInterface.OnClickListener() {
+		suggestEvent = new FragmentSuggestEvent();
+		suggestEvent.setListener(new FragmentSuggestEvent.OnInteractionListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onSaveClicked(String title, String description) {
 				HashMap<String, String> map = new HashMap<>();
-				map.put("title", ((TextInputEditText)v.findViewById(R.id.fragment_suggestion_input_title)).getText().toString());
-				map.put("description", ((TextInputEditText)v.findViewById(R.id.fragment_suggestion_input_description)).getText().toString());
+				map.put("title", title);
+				map.put("description", description);
 				ref.child("suggestions").push().setValue(map);
-				dialog.dismiss();
+				suggestEvent.dismiss();
 			}
-		});
-		builder.setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
+
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
+			public void onDiscard() {
+				suggestEvent.dismiss();
 			}
 		});
-		dialog = builder.create();
-		dialog.show();
+		suggestEvent.show(getSupportFragmentManager(), "dialog_suggest");
 	}
 
 	private void showDialogConfirmation(final String email, final boolean login) {
