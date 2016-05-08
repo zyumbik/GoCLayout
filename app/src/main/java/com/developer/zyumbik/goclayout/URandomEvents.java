@@ -161,6 +161,32 @@ public class URandomEvents extends AppCompatActivity {
 		dialog.show();
 	}
 
+	private void showDialogSuggest() {
+		final AlertDialog dialog;
+		final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AppTheme_NoActionBar);
+		LayoutInflater inflater = URandomEvents.this.getLayoutInflater();
+		final View v = inflater.inflate(R.layout.fragment_suggest_event, null);
+		builder.setTitle(R.string.dialog_reset_password_title).setView(v);
+		builder.setPositiveButton(R.string.button_submit, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				HashMap<String, String> map = new HashMap<>();
+				map.put("title", ((TextInputEditText)v.findViewById(R.id.fragment_suggestion_input_title)).getText().toString());
+				map.put("description", ((TextInputEditText)v.findViewById(R.id.fragment_suggestion_input_description)).getText().toString());
+				ref.child("suggestions").push().setValue(map);
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog = builder.create();
+		dialog.show();
+	}
+
 	private void showDialogConfirmation(final String email, final boolean login) {
 		// Confirm whether user wants to sign in using default password
 		final AlertDialog dialog;
@@ -568,6 +594,7 @@ public class URandomEvents extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_add_event:
+				showDialogSuggest();
 				return true;
 			case R.id.menu_change_password:
 				showDialogChangePassword();

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:showDividers="middle"
+        android:divider="@android:drawable/divider_horizontal_textfield"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterOverflowTextAppearance="@style/AppTheme.EditTextOverflow"
+            app:counterMaxLength="50">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fragment_suggestion_input_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical|start"
+                android:minHeight="?listPreferredItemHeight"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:lines="1"
+                android:paddingLeft="?listPreferredItemPaddingLeft"
+                android:paddingStart="?listPreferredItemPaddingLeft"
+                android:paddingRight="?listPreferredItemPaddingRight"
+                android:paddingEnd="?listPreferredItemPaddingRight"
+                android:hint="Title"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterOverflowTextAppearance="@style/AppTheme.EditTextOverflow"
+            app:counterMaxLength="400">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fragment_suggestion_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical|start"
+                android:minHeight="?listPreferredItemHeight"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="?listPreferredItemPaddingLeft"
+                android:paddingStart="?listPreferredItemPaddingLeft"
+                android:paddingRight="?listPreferredItemPaddingRight"
+                android:paddingEnd="?listPreferredItemPaddingRight"
+                android:hint="Description"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discard"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"/>
+
+    </LinearLayout> -->
+
+</LinearLayout>
