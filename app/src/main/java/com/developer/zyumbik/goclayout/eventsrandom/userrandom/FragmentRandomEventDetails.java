@@ -1,22 +1,14 @@
-package com.developer.zyumbik.goclayout.userrandom;
+package com.developer.zyumbik.goclayout.eventsrandom.userrandom;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.zyumbik.goclayout.R;
-import com.firebase.client.annotations.NotNull;
 
 /** Created by glebsabirzanov on 20/04/16. */
 public class FragmentRandomEventDetails extends BottomSheetDialogFragment {

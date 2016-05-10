@@ -1,4 +1,4 @@
-package com.developer.zyumbik.goclayout.userrandom;
+package com.developer.zyumbik.goclayout.eventsrandom.userrandom;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

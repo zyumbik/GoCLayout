@@ -1,10 +1,13 @@
 package com.developer.zyumbik.goclayout;
 
 import android.app.ProgressDialog;
+import android.content.AbstractThreadedSyncAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,12 +20,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.auth.FragmentAuthentication;
+import com.developer.zyumbik.goclayout.eventsrandom.EventsViewPagerAdapter;
 import com.developer.zyumbik.goclayout.system.AppClass;
-import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventDetails;
-import com.developer.zyumbik.goclayout.userrandom.FragmentRandomEventPoll;
-import com.developer.zyumbik.goclayout.userrandom.FragmentSuggestEvent;
-import com.developer.zyumbik.goclayout.userrandom.URandomEventListItem;
-import com.developer.zyumbik.goclayout.userrandom.URandomListAdapter;
+import com.developer.zyumbik.goclayout.eventsrandom.userrandom.FragmentRandomEventDetails;
+import com.developer.zyumbik.goclayout.eventsrandom.userrandom.FragmentRandomEventPoll;
+import com.developer.zyumbik.goclayout.eventsrandom.userrandom.FragmentSuggestEvent;
+import com.developer.zyumbik.goclayout.eventsrandom.FragmentURandomEvents;
+import com.developer.zyumbik.goclayout.eventsrandom.userrandom.URandomEventListItem;
+import com.developer.zyumbik.goclayout.eventsrandom.userrandom.URandomListAdapter;
+import com.developer.zyumbik.goclayout.eventsrandom.FragmentVRandomEvents;
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -39,11 +45,14 @@ import java.util.Map;
 public class URandomEvents extends AppCompatActivity {
 
 	private Context context;
+	private Toolbar toolbar;
+	private TabLayout tabLayout;
+	private ViewPager viewPager;
 	private RecyclerView recyclerView;
 	private URandomListAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
 	private List<URandomEventListItem> events;
-	private List<Boolean> answeredEvents;
+	private List<Boolean> answeredEvents, votedEvents;
 	private ProgressDialog progressDialog;
 	private FragmentRandomEventDetails details;
 	private FragmentRandomEventPoll poll;
@@ -53,10 +62,11 @@ public class URandomEvents extends AppCompatActivity {
 	private Firebase refList = new Firebase(AppClass.PROBABILITIES_LIST_URL);
 	private Firebase.AuthResultHandler authResultHandler;
 	private Firebase.ResultHandler resultHandler;
-	private boolean registered = false;
+	private AuthenticationState authenticationState = AuthenticationState.NONE;
 
 	private enum ConfirmationDialogType{ANONYMOUS_AUTH, PASSWORD_RESET, LOG_OUT}
 	private enum ResultHandlerType{PASSWORD_CHANGE, PASSWORD_RESET}
+	public enum AuthenticationState{NONE, REGISTERED, LOGGED_IN, ANONYMOUS}
 	private ResultHandlerType currentHandlerType;
 
 	@Override
@@ -69,10 +79,15 @@ public class URandomEvents extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random_events);
 
-		// TODO: Action bar and back button
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
+		toolbar = (Toolbar) findViewById(R.id.toolbar_random_events);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		viewPager = (ViewPager) findViewById(R.id.events_viewpager);
+		setupViewPager(viewPager);
+
+		tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(viewPager);
 
 		context = this;
 		showDialogLoading();
@@ -84,16 +99,35 @@ public class URandomEvents extends AppCompatActivity {
 		recyclerView.setLayoutManager(layoutManager);
 		setRecyclerView();
 
-		registered = (ref.getAuth() != null);
+		determineAuthenticationState();
 		setAuthResultHandler();
 		setResultHandler();
 		fetchEventsList();
 	}
 
+	public List<URandomEventListItem> getEvents() {
+		return events;
+	}
+
+	public List<Boolean> getAnsweredEvents() {
+		return answeredEvents;
+	}
+
+	public List<Boolean> getVotedEvents() {
+		return votedEvents;
+	}
+
+	private void setupViewPager(ViewPager viewPager) {
+		EventsViewPagerAdapter viewPagerAdapter = new EventsViewPagerAdapter(getSupportFragmentManager());
+		viewPagerAdapter.setFragment(FragmentURandomEvents.newInstance(events, answeredEvents), "Answer");
+		viewPagerAdapter.setFragment(FragmentVRandomEvents, "Vote");
+		viewPager.setAdapter(viewPagerAdapter);
+	}
+
 	private void onSuccessfulAuth() {
 		setRecyclerView();
 		dismissDialogLoading();
-		if (registered) {
+		if (determineAuthenticationState() == AuthenticationState.LOGGED_IN) {
 			Toast.makeText(URandomEvents.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 		} else {
 			showDialogError("Failed to login. Try again");
@@ -106,7 +140,6 @@ public class URandomEvents extends AppCompatActivity {
 		fragmentAuthentication.setListener(new FragmentAuthentication.OnAuthFragmentInteractionListener() {
 			@Override
 			public void onSubmitClicked(String email, String password, boolean registered) {
-				URandomEvents.this.registered = registered;
 				if (registered) {
 					userLogin(email, password);
 				} else {
@@ -132,6 +165,19 @@ public class URandomEvents extends AppCompatActivity {
 		if (fragmentAuthentication != null) {
 			fragmentAuthentication.dismiss();
 		}
+	}
+
+	private AuthenticationState determineAuthenticationState() {
+		if (ref.getAuth() != null) {
+			if (ref.getAuth().getProvider().equals("password")){
+				authenticationState = AuthenticationState.LOGGED_IN;
+				return AuthenticationState.LOGGED_IN;
+			}
+			authenticationState = AuthenticationState.ANONYMOUS;
+			return AuthenticationState.ANONYMOUS;
+		}
+		authenticationState = AuthenticationState.NONE;
+		return AuthenticationState.NONE;
 	}
 
 	private void showDialogChangePassword() {
@@ -247,6 +293,7 @@ public class URandomEvents extends AppCompatActivity {
 				switch (type) {
 					case ANONYMOUS_AUTH:
 						ref.authAnonymously(authResultHandler);
+						determineAuthenticationState();
 						break;
 					case PASSWORD_RESET:
 						ref.resetPassword(fragmentAuthentication.getEmail(), resultHandler);
@@ -317,11 +364,11 @@ public class URandomEvents extends AppCompatActivity {
 			@Override
 			public void onAuthenticated(AuthData authData) {
 				// Authenticated successfully with payload authData
-				if (registered) {
+				if (authenticationState == AuthenticationState.LOGGED_IN || authenticationState == AuthenticationState.ANONYMOUS) {
 					fetchAnswersList();
 				} else {
 					putAnswersList();
-					registered = (authData != null);
+					determineAuthenticationState();
 					onSuccessfulAuth();
 				}
 				dismissDialogLoading();
@@ -391,10 +438,12 @@ public class URandomEvents extends AppCompatActivity {
 			ref.createUser(email, password, new Firebase.ResultHandler() {
 				@Override
 				public void onSuccess() {
+					authenticationState = AuthenticationState.REGISTERED;
 					userLogin(email, password);
 				}
 				@Override
 				public void onError(FirebaseError firebaseError) {
+					determineAuthenticationState();
 					dismissDialogLoading();
 					showDialogError("Can not create an account: " + firebaseError.getMessage());
 				}
@@ -417,7 +466,9 @@ public class URandomEvents extends AppCompatActivity {
 				fillAnswersListIfNull();
 				setRecyclerView();
 				dismissDialogLoading();
-				if (registered) {
+				determineAuthenticationState();
+				if (authenticationState == AuthenticationState.LOGGED_IN
+						|| authenticationState == AuthenticationState.ANONYMOUS) {
 					fetchAnswersList();
 				} else {
 					showAuthDialog();
@@ -435,7 +486,7 @@ public class URandomEvents extends AppCompatActivity {
 	}
 
 	private void fetchAnswersList() {
-		if (registered) {
+		if (determineAuthenticationState() == AuthenticationState.LOGGED_IN) {
 			answeredEvents = new ArrayList<>();
 			ref.child("users").child(ref.getAuth().getUid()).child("list_answered").
 					addListenerForSingleValueEvent(new ValueEventListener() {
@@ -462,6 +513,15 @@ public class URandomEvents extends AppCompatActivity {
 			answeredEvents = new ArrayList<>();
 			for (int i = 0; i < events.size(); i++) {
 				answeredEvents.add(false);
+			}
+		}
+	}
+
+	private void fillVotesListIfNull() {
+		if (votedEvents == null) {
+			votedEvents = new ArrayList<>();
+			for (int i = 0; i < events.size(); i++) {
+				votedEvents.add(false);
 			}
 		}
 	}
@@ -500,7 +560,7 @@ public class URandomEvents extends AppCompatActivity {
 			adapter.setListener(new URandomListAdapter.ItemClickListener() {
 				@Override
 				public void onItemClick(URandomEventListItem item, int id) {
-					if (registered) {
+					if (determineAuthenticationState() == AuthenticationState.LOGGED_IN) {
 						showBottomSheet(id);
 					} else {
 						Toast.makeText(URandomEvents.this, "Not yet signed in", Toast.LENGTH_SHORT).show();
@@ -582,8 +642,6 @@ public class URandomEvents extends AppCompatActivity {
 		}
 	}
 
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -607,4 +665,9 @@ public class URandomEvents extends AppCompatActivity {
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
+	public interface OnLogin{
+		void onAouthenticactionAction(AuthenticationState state);
+	}
+
 }

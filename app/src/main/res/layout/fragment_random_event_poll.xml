@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              tools:context=".userrandom.FragmentRandomEventPoll"
+              tools:context=".eventsrandom.userrandom.FragmentRandomEventPoll"
               app:layout_behavior="@string/bottom_sheet_behavior"
               android:layout_marginTop="@dimen/bottom_sheet_vertical_margin"
               android:layout_marginBottom="@dimen/bottom_sheet_vertical_margin"
