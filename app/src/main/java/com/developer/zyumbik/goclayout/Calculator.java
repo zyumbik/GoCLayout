@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developer.zyumbik.goclayout.calculator.CalculatorAdapter;
 import com.developer.zyumbik.goclayout.calculator.Probability;
+import com.developer.zyumbik.goclayout.calculator.RandomNumberGenerator;
 
 import java.util.ArrayList;
 
@@ -76,4 +78,15 @@ public class Calculator extends AppCompatActivity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_random_generator:
+				RandomNumberGenerator generator = new RandomNumberGenerator();
+				generator.show(getSupportFragmentManager(), "random_generator");
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 }

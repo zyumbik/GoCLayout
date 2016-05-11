@@ -84,4 +84,7 @@
     <string name="help_text">This is help</string>
     <string name="activity_label_help">Help</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
