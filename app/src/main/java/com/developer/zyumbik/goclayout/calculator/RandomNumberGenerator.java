@@ -2,15 +2,12 @@ package com.developer.zyumbik.goclayout.calculator;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +29,6 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 	Button button;
 	Random rnd = new Random();
 	boolean userInteraction = false;
-	int currentLimit;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +56,7 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				currentLimit = Integer.valueOf(limit.getText().toString());
+				int currentLimit = getLimitValue();
 				if (currentLimit != Integer.MAX_VALUE) {
 					output.setText(String.valueOf(rnd.nextInt(currentLimit + 1)));
 				} else {
@@ -71,6 +67,7 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 	}
 
 	private void setLimitField() {
+		limit.requestFocus();
 		limit.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,12 +77,8 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (!userInteraction) {
-					if (Long.valueOf(s.toString()) > Integer.MAX_VALUE) {
-						limit.setText(String.valueOf(Integer.MAX_VALUE));
-						Toast.makeText(getContext(), "Isn't it too much for you?", Toast.LENGTH_SHORT).show();
-					} else {
-						int a = binlog(Integer.valueOf(limit.getText().toString()) + 1);
-						slider.setProgress(a);
+					if (limitValueAcceptable()) {
+						setProgressFromLimit();
 					}
 				}
 				limit.requestLayout();
@@ -97,6 +90,14 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 
 			}
 		});
+		limit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (!hasFocus) {
+					getLimitValue();
+				}
+			}
+		});
 	}
 
 	private void setSlider() {
@@ -104,16 +105,15 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					if (progress == 32) {
-						limit.setText(String.valueOf(Integer.MAX_VALUE));
-					} else {
-						limit.setText(String.valueOf((int)Math.pow(2, progress)));
-					}
+					setLimitFromProgress(progress);
 				}
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
+				if (!limit.isFocused()) {
+					limit.requestFocus();
+				}
 				userInteraction = true;
 			}
 
@@ -124,7 +124,37 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 		});
 	}
 
-	public static int binlog( int bits ) {
+	private boolean limitValueAcceptable() {
+		String lim = limit.getText().toString();
+		return !(lim.equals("") || Long.valueOf(lim) <= 0 || Long.valueOf(lim) > Integer.MAX_VALUE);
+	}
+
+	private int getLimitValue() {
+		if (!limitValueAcceptable()) {
+			setLimitFromProgress(slider.getProgress());
+		}
+		return Integer.valueOf(limit.getText().toString());
+	}
+
+	private void setLimitFromProgress(int progress) {
+		if (progress == 32) {
+			limit.setText(String.valueOf(Integer.MAX_VALUE));
+		} else {
+			limit.setText(String.valueOf((int)Math.pow(2, progress)));
+		}
+	}
+
+	private void setProgressFromLimit() {
+		if (Long.valueOf(limit.getText().toString()) > Integer.MAX_VALUE) {
+			limit.setText(String.valueOf(Integer.MAX_VALUE));
+			Toast.makeText(getContext(), "Isn't it too much for you?", Toast.LENGTH_SHORT).show();
+		} else {
+			int a = binlog(Integer.valueOf(limit.getText().toString()) + 1);
+			slider.setProgress(a);
+		}
+	}
+
+	public int binlog( int bits ) {
 		int log = 0;
 		if( ( bits & 0xffff0000 ) != 0 ) { bits >>>= 16; log = 16; }
 		if( bits >= 256 ) { bits >>>= 8; log += 8; }

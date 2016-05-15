@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Limit"
-                android:text="1"
+                android:text="15"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:inputType="numberDecimal"
@@ -66,6 +66,7 @@
                 android:layout_toLeftOf="@id/fragment_random_number_limit"
                 android:layout_toStartOf="@id/fragment_random_number_limit"
                 android:layout_centerVertical="true"
+                android:progress="4"
                 android:max="31"/>
 
         </RelativeLayout>
@@ -78,9 +79,12 @@
                 android:id="@+id/fragment_random_number_button_generate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_offset"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="Generate"/>
 
             <android.support.design.widget.TextInputLayout
@@ -90,7 +94,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_toStartOf="@id/fragment_random_number_button_generate"
                 android:layout_toLeftOf="@id/fragment_random_number_button_generate"
-                android:layout_margin="@dimen/text_offset">
+                android:layout_margin="@dimen/text_offset"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/fragment_random_number_output"
@@ -98,6 +103,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:textIsSelectable="true"
+                    android:focusable="true"
+                    android:selectAllOnFocus="true"
                     android:hint="Generated number"/>
 
             </android.support.design.widget.TextInputLayout>
