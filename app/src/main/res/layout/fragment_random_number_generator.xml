@@ -25,70 +25,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:orientation="vertical">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_offset">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/fragment_random_number_output"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:textIsSelectable="true"
-                android:hint="Generated number"/>
-
-        </android.support.design.widget.TextInputLayout>
+        android:orientation="vertical"
+        android:paddingTop="@dimen/appbar_padding_top">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_offset"
-            android:animateLayoutChanges="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/fragment_random_number_text_input_limit"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Limit"/>
+
+            <EditText
+                android:id="@+id/fragment_random_number_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Limit"
+                android:text="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
                 android:minWidth="40dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <SeekBar
+                android:id="@+id/fragment_random_number_slider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/fragment_random_number_limit"
+                android:layout_toStartOf="@id/fragment_random_number_limit"
+                android:layout_centerVertical="true"
+                android:max="31"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/fragment_random_number_button_generate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_offset"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Generate"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@id/fragment_random_number_button_generate"
+                android:layout_toLeftOf="@id/fragment_random_number_button_generate"
+                android:layout_margin="@dimen/text_offset">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/fragment_random_number_limit"
+                    android:id="@+id/fragment_random_number_output"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Limit"
-                    android:text="1"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"/>
+                    android:inputType="none"
+                    android:textIsSelectable="true"
+                    android:hint="Generated number"/>
 
-        </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
-        <SeekBar
-            android:id="@+id/fragment_random_number_slider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@id/fragment_random_number_text_input_limit"
-            android:layout_toStartOf="@id/fragment_random_number_text_input_limit"
-            android:layout_centerVertical="true"
-            android:max="32"/>
-
-    </RelativeLayout>
-
-        <Button
-            android:id="@+id/fragment_random_number_button_generate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="@dimen/text_offset"
-            android:text="Generate"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
