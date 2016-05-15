@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/card_margin"
+    android:paddingTop="@dimen/space_between_content_areas"
     tools:context="com.developer.zyumbik.goclayout.MainActivity"
     android:orientation="vertical"
     android:animateLayoutChanges="true">
@@ -40,10 +40,10 @@
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/text_offset"
-                    android:paddingRight="@dimen/text_offset"
-                    android:paddingTop="@dimen/text_offset"
-                    android:paddingBottom="@dimen/text_offset"
+                    android:paddingLeft="@dimen/activity_content_area_margin"
+                    android:paddingRight="@dimen/activity_content_area_margin"
+                    android:paddingTop="@dimen/activity_content_area_margin"
+                    android:paddingBottom="@dimen/activity_content_area_margin"
                     android:animateLayoutChanges="true">
 
                     <TextView
@@ -103,10 +103,10 @@
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/text_offset"
-                    android:paddingRight="@dimen/text_offset"
-                    android:paddingTop="@dimen/text_offset"
-                    android:paddingBottom="@dimen/text_offset"
+                    android:paddingLeft="@dimen/activity_content_area_margin"
+                    android:paddingRight="@dimen/activity_content_area_margin"
+                    android:paddingTop="@dimen/activity_content_area_margin"
+                    android:paddingBottom="@dimen/activity_content_area_margin"
                     android:animateLayoutChanges="true">
 
                     <TextView
@@ -166,10 +166,10 @@
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/text_offset"
-                    android:paddingRight="@dimen/text_offset"
-                    android:paddingTop="@dimen/text_offset"
-                    android:paddingBottom="@dimen/text_offset"
+                    android:paddingLeft="@dimen/activity_content_area_margin"
+                    android:paddingRight="@dimen/activity_content_area_margin"
+                    android:paddingTop="@dimen/activity_content_area_margin"
+                    android:paddingBottom="@dimen/activity_content_area_margin"
                     android:animateLayoutChanges="true">
 
                     <TextView

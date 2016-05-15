@@ -20,12 +20,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <LinearLayout
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/text_offset"
+        android:padding="@dimen/activity_content_area_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
@@ -46,7 +44,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="@dimen/text_offset"
+            android:layout_marginTop="@dimen/space_between_content_areas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
@@ -62,23 +60,5 @@
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discard"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"/>
-
-    </LinearLayout> -->
 
 </android.support.design.widget.CoordinatorLayout>

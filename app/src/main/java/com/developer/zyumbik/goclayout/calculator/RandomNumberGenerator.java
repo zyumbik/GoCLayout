@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 		output = (TextInputEditText) v.findViewById(R.id.fragment_random_number_output);
 		slider = (SeekBar) v.findViewById(R.id.fragment_random_number_slider);
 		button = (Button) v.findViewById(R.id.fragment_random_number_button_generate);
+		setRandomLimit();
 		setButton();
 		setLimitField();
 		setSlider();
@@ -114,14 +116,21 @@ public class RandomNumberGenerator extends AppCompatDialogFragment {
 				if (!limit.isFocused()) {
 					limit.requestFocus();
 				}
+				limit.setInputType(InputType.TYPE_NULL);
 				userInteraction = true;
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				userInteraction = false;
+				limit.setInputType(InputType.TYPE_CLASS_NUMBER);
 			}
 		});
+	}
+
+	private void setRandomLimit() {
+		limit.setText(String.valueOf(rnd.nextInt((int) Math.pow(2, 14))));
+		setProgressFromLimit();
 	}
 
 	private boolean limitValueAcceptable() {

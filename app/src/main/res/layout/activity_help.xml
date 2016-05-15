@@ -19,8 +19,8 @@
     </android.support.design.widget.AppBarLayout>
 
     <TextView
-        android:padding="@dimen/text_offset"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:padding="@dimen/activity_content_area_margin"
+        android:layout_marginTop="@dimen/activity_content_area_margin"
         android:id="@+id/help_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

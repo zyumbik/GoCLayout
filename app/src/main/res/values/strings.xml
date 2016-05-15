@@ -40,8 +40,13 @@
     <string name="calc_list_probabilities_header">Event probabilities</string>
     <string name="calc_list_separator">:</string>
     <string name="remove_item">Remove item</string>
+    <!-- Random number generator -->
+    <string name="generator_limit_header">Limit</string>
+    <string name="button_generate">Generate</string>
+    <string name="hint_generated_number">Generated number</string>
 
     <!-- User Random events -->
+    <string name="hidden_percentage">\??%</string>
     <string name="button_false">false</string>
     <string name="button_true">true</string>
     <string name="uRandom_event_text_question">This event is true for you, isn\'t it?</string>
@@ -53,6 +58,7 @@
     <string name="dialog_authentication_input_email">Email</string>
     <string name="dialog_authentication_input_password">Password</string>
     <string name="dialog_authentication_checkbox_existing_user">Already a user</string>
+    <string name="button_forgot_password">Forgot</string>
 
     <!-- Authentication dialogs for stupid users -->
     <string name="ok">OK</string>
@@ -75,16 +81,17 @@
     <string name="dialog_log_out_title">Log out?</string>
     <string name="dialog_log_out_message">You will be able to log in using your email and password.
         If you logged in anonymously, you will loose all your data.</string>
-    <string name="hidden_percentage">\??%</string>
+
+    <!-- Suggestions from users -->
     <string name="dialog_suggest_event_title">Suggest adding event</string>
     <string name="fragment_suggest_hint_title">Title</string>
     <string name="fragment_suggest_hint_description">Description</string>
-    <string name="save">Save</string>
+    <string name="send">Send</string>
     <string name="text_field_input_overflow">Too much text</string>
-    <string name="help_text">This is help</string>
-    <string name="activity_label_help">Help</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Help -->
+    <string name="activity_label_help">Help</string>
+    <string name="help_text">This is help</string>
 
 </resources>

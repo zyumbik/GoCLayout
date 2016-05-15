@@ -1,19 +1,48 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="card_margin">8dp</dimen>
+    <!-- General -->
+    <dimen name="activity_content_area_margin">16dp</dimen>
+    <dimen name="space_between_content_areas">8dp</dimen>
+
+    <!-- Text sizes -->
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_title">24sp</dimen>
-    <dimen name="text_offset">16dp</dimen>
-    <dimen name="margin_calculator_menu">16dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
-    <dimen name="uRnd_list_item_padding">16dp</dimen>
-    <dimen name="bottom_sheet_vertical_margin">16dp</dimen>
-    <dimen name="bottom_sheet_horizontal_margin">16dp</dimen>
-    <dimen name="dialog_content_area_padding">24dp</dimen>
 
+    <!-- Components -->
+    <dimen name="list_subtitle_height">48dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="list_item_start_padding">72dp</dimen>
+
+    <dimen name="bottom_sheet_horizontal_margin">16dp</dimen>
+    <dimen name="bottom_sheet_vertical_margin">16dp</dimen>
+    <dimen name="bottom_sheet_header_height">56dp</dimen>
+    <dimen name="bottom_sheet_bottom_space">8dp</dimen>
+
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="button_bar_padding">8dp</dimen>
+    <dimen name="button_compact_height">32dp</dimen>
+    <dimen name="button_compact_text_size">13sp</dimen>
+
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_top_padding">24dp</dimen>
+
+    <dimen name="dialog_content_area_padding">24dp</dimen>
+    <dimen name="dialog_button_container_height">52dp</dimen>
+    <dimen name="dialog_padding_between_title_and_body_text">20dp</dimen>
+    <dimen name="min_dialog_width">280dp</dimen>
+
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_calculator_menu">16dp</dimen>
+
+    <dimen name="edit_text_label_height">72dp</dimen>
+    <dimen name="edit_text_height">48dp</dimen>
+    <dimen name="edit_text_padding">8dp</dimen>
+    <dimen name="edit_text_compact_height">60dp</dimen>
+    <dimen name="edit_text_compact_text_size">13sp</dimen>
+    <dimen name="edit_text_compact_bottom_padding">4dp</dimen>
+    
 </resources>

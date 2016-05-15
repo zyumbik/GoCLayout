@@ -3,6 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_save_suggestion"
-        android:title="@string/save"
+        android:title="@string/send"
         app:showAsAction="always"/>
 </menu>
