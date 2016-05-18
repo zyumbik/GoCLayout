@@ -10,24 +10,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.developer.zyumbik.goclayout.calculator.CalculatorAdapter;
-import com.developer.zyumbik.goclayout.calculator.Probability;
+import com.developer.zyumbik.goclayout.calculator.CalculatorAdapterProbabilities;
 import com.developer.zyumbik.goclayout.calculator.RandomNumberGenerator;
-
-import java.util.ArrayList;
 
 public class Calculator extends AppCompatActivity {
 
-	FloatingActionButton floatingActionButton;
-	EditText etOutcomes, etEvents;
+	private FloatingActionButton floatingActionButton;
+	private EditText etOutcomes, etEvents;
 	private RecyclerView.Adapter adapter;
+	private RecyclerView recyclerViewProbabilities;
+	private TextView listHeader;
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 		finish();
+		super.onBackPressed();
 	}
 
 	@Override
@@ -44,13 +44,15 @@ public class Calculator extends AppCompatActivity {
 		floatingActionButton = (FloatingActionButton) findViewById(R.id.fabAddProbability);
 		etEvents = (EditText) findViewById(R.id.inputEvents);
 		etOutcomes = (EditText) findViewById(R.id.inputOutcomes);
+		listHeader = (TextView) findViewById(R.id.calculator_list_header);
+		listHeader.setVisibility(View.INVISIBLE);
 
 		// Scrolling list of probabilities
-		final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.calcRecyclerProbabilities);
-		recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		adapter = new CalculatorAdapter();
-		recyclerView.setAdapter(adapter);
+		recyclerViewProbabilities = (RecyclerView) findViewById(R.id.calcRecyclerProbabilities);
+		recyclerViewProbabilities.setHasFixedSize(true);
+		recyclerViewProbabilities.setLayoutManager(new LinearLayoutManager(this));
+		adapter = new CalculatorAdapterProbabilities();
+		recyclerViewProbabilities.setAdapter(adapter);
 
 		// Adding new elements to the list
 		floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,8 @@ public class Calculator extends AppCompatActivity {
 					if (events > outcomes) {
 						Toast.makeText(Calculator.this, "You can't have more events than outcomes", Toast.LENGTH_LONG).show();
 					} else {
-						((CalculatorAdapter)adapter).addProbability(outcomes, events);
+						((CalculatorAdapterProbabilities)adapter).addProbability(outcomes, events);
+						listHeader.setVisibility(View.VISIBLE);
 					}
 				} catch (NumberFormatException e) {
 					Toast.makeText(Calculator.this, "Can't parse the number", Toast.LENGTH_LONG).show();
@@ -74,7 +77,7 @@ public class Calculator extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.calculator, menu);
+		getMenuInflater().inflate(R.menu.menu_calculator, menu);
 		return true;
 	}
 

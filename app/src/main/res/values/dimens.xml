@@ -7,6 +7,7 @@
     <!-- Text sizes -->
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_title">24sp</dimen>
+    <dimen name="list_subtitle_font_size">12sp</dimen>
 
     <!-- Components -->
     <dimen name="list_subtitle_height">48dp</dimen>
@@ -34,9 +35,12 @@
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="padding_start_toolbar_layout">32dp</dimen>
+    <dimen name="padding_bottom_toolbar_layout">56dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_calculator_menu">16dp</dimen>
+    <dimen name="separator_height">1dp</dimen>
 
     <dimen name="edit_text_label_height">72dp</dimen>
     <dimen name="edit_text_height">48dp</dimen>
@@ -44,5 +48,5 @@
     <dimen name="edit_text_compact_height">60dp</dimen>
     <dimen name="edit_text_compact_text_size">13sp</dimen>
     <dimen name="edit_text_compact_bottom_padding">4dp</dimen>
-    
+
 </resources>

@@ -29,23 +29,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="32dp"
-                android:paddingStart="32dp"
-                android:paddingBottom="56dp"
-                android:paddingRight="16dp"
-                android:paddingEnd="16dp">
+                android:paddingLeft="@dimen/padding_start_toolbar_layout"
+                android:paddingStart="@dimen/padding_start_toolbar_layout"
+                android:paddingBottom="@dimen/padding_bottom_toolbar_layout"
+                android:paddingRight="@dimen/activity_content_area_margin"
+                android:paddingEnd="@dimen/activity_content_area_margin">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="@dimen/edit_text_label_height"
                     android:theme="@style/AppBarTextLabel">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/inputOutcomes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_body"
                         android:hint="@string/calculator_menu_outcomes"
                         android:maxLength="10"
                         android:inputType="number"/>
@@ -53,27 +51,24 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="@dimen/edit_text_label_height"
                     android:theme="@style/AppBarTextLabel">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/inputEvents"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_body"
                         android:hint="@string/calculator_menu_events"
                         android:maxLength="10"
                         android:inputType="number"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <CheckBox
+                    android:id="@+id/checkbox_calculator_independent"
                     android:text="@string/calculator_menu_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="@dimen/text_body"/>
+                    android:checked="true"/>
 
             </LinearLayout>
 
@@ -93,16 +88,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- TODO: make this textview invisible until elements are added -->
             <TextView
+                android:id="@+id/calculator_list_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_content_area_margin"
-                android:layout_marginStart="@dimen/activity_content_area_margin"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="@dimen/activity_content_area_margin"
+                android:layout_height="@dimen/list_subtitle_height"
+                android:paddingLeft="@dimen/activity_content_area_margin"
+                android:paddingStart="@dimen/activity_content_area_margin"
+                android:paddingEnd="@dimen/activity_content_area_margin"
+                android:paddingRight="@dimen/activity_content_area_margin"
+                android:layout_marginTop="@dimen/activity_content_area_margin"
+                android:gravity="center_vertical"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
+                android:textSize="@dimen/list_subtitle_font_size"
                 android:text="@string/calc_list_probabilities_header"/>
 
             <android.support.v7.widget.RecyclerView
@@ -113,10 +110,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/separator_height"
                 android:background="@android:color/darker_gray"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="@dimen/space_between_content_areas"
+                android:layout_marginBottom="@dimen/space_between_content_areas"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/calcRecyclerCombinations"
@@ -135,7 +132,7 @@
         app:pressedTranslationZ="12dp"
         android:src="@drawable/ic_add_24dp"
         android:clickable="true"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/layout_input_calculator"

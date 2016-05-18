@@ -16,19 +16,17 @@ import java.util.ArrayList;
 
 /** Created by glebsabirzanov on 23/03/16. */
 
-public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.ViewHolder> {
+public class CalculatorAdapterProbabilities extends RecyclerView.Adapter<CalculatorAdapterProbabilities.ViewHolder> {
 
 	private ArrayList<Probability> list;
-	private static int typeOfData = 0, maxIndex = 0;
+	private int maxIndex = 0;
+	private enum DataRepresentationType {DOUBLE, PERCENT, FRACTION}
+	private static DataRepresentationType typeOfData = DataRepresentationType.DOUBLE;
 
 	public void addProbability(int outcomes, int events) {
-		// TODO: put a restriction on adding new elements
-		if (maxIndex < 27) {
-			list.add(new Probability(maxIndex++, outcomes, events));
-
-			// TODO: implement smooth animation
-			notifyDataSetChanged();
-		}
+		list.add(new Probability(maxIndex++, outcomes, events));
+		// TODO: implement smooth animation
+		notifyDataSetChanged();
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,10 +58,16 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 
 		private void changeTypeOfData() {
 			// TODO: change to "Flip probability"
-			if (typeOfData != 2) {
-				typeOfData++;
-			} else {
-				typeOfData = 0;
+			switch (typeOfData) {
+				case DOUBLE:
+					typeOfData = DataRepresentationType.PERCENT;
+					break;
+				case PERCENT:
+					typeOfData = DataRepresentationType.FRACTION;
+					break;
+				default:
+					typeOfData = DataRepresentationType.DOUBLE;
+					break;
 			}
 		}
 
@@ -89,16 +93,16 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 		notifyDataSetChanged();
 	}
 
-	public CalculatorAdapter() {
+	public CalculatorAdapterProbabilities() {
 		this.list = new ArrayList<>();
 	}
 
 	@Override
-	public CalculatorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+	public CalculatorAdapterProbabilities.ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
 
 		// create a new view
 		View v =  LayoutInflater.from(parent.getContext())
-				.inflate(R.layout.calculator_list_item, parent, false);
+				.inflate(R.layout.calculator_probabilitiy_list_item, parent, false);
 
 		ViewHolder vh = new ViewHolder(v);
 		return vh;
@@ -108,10 +112,10 @@ public class CalculatorAdapter extends RecyclerView.Adapter<CalculatorAdapter.Vi
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		holder.textIndex.setText(list.get(position).getIndex());
 		switch (typeOfData) {
-			case 1:
+			case DOUBLE:
 				holder.textValue.setText(list.get(position).getDouble());
 				break;
-			case 0:
+			case PERCENT:
 				holder.textValue.setText(list.get(position).getPercent());
 				break;
 			default:

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/menu_add_event"
         android:title="@string/action_suggest_adding_event"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_change_password"
           android:title="@string/action_change_password"
