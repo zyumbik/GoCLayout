@@ -10,8 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbarABLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/calculator_toolbar"
@@ -40,7 +39,7 @@
                     android:layout_height="@dimen/edit_text_label_height"
                     android:theme="@style/AppBarTextLabel">
 
-                    <android.support.v7.widget.AppCompatEditText
+                    <android.support.design.widget.TextInputEditText
                         android:id="@+id/inputOutcomes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -54,21 +53,15 @@
                     android:layout_height="@dimen/edit_text_label_height"
                     android:theme="@style/AppBarTextLabel">
 
-                    <android.support.v7.widget.AppCompatEditText
+                    <android.support.design.widget.TextInputEditText
                         android:id="@+id/inputEvents"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/calculator_menu_events"
                         android:maxLength="10"
                         android:inputType="number"/>
-                </android.support.design.widget.TextInputLayout>
 
-                <CheckBox
-                    android:id="@+id/checkbox_calculator_independent"
-                    android:text="@string/calculator_menu_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"/>
+                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
@@ -104,19 +97,6 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/calcRecyclerProbabilities"
-                android:scrollbars="none"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separator_height"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/space_between_content_areas"
-                android:layout_marginBottom="@dimen/space_between_content_areas"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/calcRecyclerCombinations"
                 android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

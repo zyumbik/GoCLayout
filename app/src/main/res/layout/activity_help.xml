@@ -18,14 +18,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:padding="@dimen/activity_content_area_margin"
-        android:layout_marginTop="@dimen/activity_content_area_margin"
-        android:id="@+id/help_text_view"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="vertical"
-        android:text="@string/help_text"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/help_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_content_area_margin"
+            android:paddingTop="@dimen/activity_content_area_margin"
+            android:text="@string/help_text"/>
+
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,8 @@
 package com.developer.zyumbik.goclayout.userrandom;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /** Created by glebsabirzanov on 27/03/16. */
 public class URandomEventListItem {
@@ -49,7 +51,10 @@ public class URandomEventListItem {
 
 	public String getProbabilityPercentFull() {
 		// TODO: make it work better with repeating decimals
-		return Double.valueOf(new DecimalFormat("##.##").format(getProbabilityDouble() * 100)) + "%";
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ROOT);
+		DecimalFormat df = (DecimalFormat)nf;
+		df.setMaximumFractionDigits(2);
+		return Double.valueOf(df.format(getProbabilityDouble() * 100)) + "%";
 	}
 
 	public int getPplYes() {

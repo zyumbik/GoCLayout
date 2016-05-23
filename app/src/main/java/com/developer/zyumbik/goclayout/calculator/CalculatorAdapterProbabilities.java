@@ -33,7 +33,6 @@ public class CalculatorAdapterProbabilities extends RecyclerView.Adapter<Calcula
 
 		public TextView textValue;
 		public TextView textIndex;
-		public CheckBox checkBox;
 		public ImageButton removeButton;
 		public RelativeLayout layout;
 
@@ -41,19 +40,12 @@ public class CalculatorAdapterProbabilities extends RecyclerView.Adapter<Calcula
 			super(v);
 			textValue = (TextView) v.findViewById(R.id.calcListValue);
 			textIndex = (TextView) v.findViewById(R.id.calcListIndex);
-			checkBox = (CheckBox) v.findViewById(R.id.calcListCheckbox);
 			removeButton = (ImageButton) v.findViewById(R.id.calcListButtonRemove);
 			layout = (RelativeLayout) v.findViewById(R.id.calcListLayout);
 
 			removeButton.setOnClickListener(this);
 			layout.setOnClickListener(this);
 
-			checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-				}
-			});
 		}
 
 		private void changeTypeOfData() {
@@ -88,7 +80,6 @@ public class CalculatorAdapterProbabilities extends RecyclerView.Adapter<Calcula
 		list.remove(position);
 //		notifyItemRemoved(position);
 //		notifyItemRangeChanged(position, list.size());
-
 		// TODO: implement smooth animation
 		notifyDataSetChanged();
 	}

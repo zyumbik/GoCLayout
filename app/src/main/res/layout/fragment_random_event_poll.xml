@@ -22,7 +22,7 @@
         android:text="Headline"/>
 
     <TextView
-        android:id="@+id/uRnd_fragment_bottom_sheet_question"
+        android:id="@+id/uRnd_fragment_bottom_sheet_poll_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_content_area_margin"
@@ -32,7 +32,7 @@
         android:paddingRight="@dimen/bottom_sheet_vertical_margin"
         android:paddingEnd="@dimen/bottom_sheet_vertical_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:text="@string/uRandom_event_text_question"/>
+        android:text="Description"/>
 
     <RelativeLayout
         android:layout_marginLeft="@dimen/button_bar_padding"

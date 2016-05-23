@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name">The Game of Chance</string>
+    <string name="app_name">Game of Chance</string>
 
-    <!-- What is it? -->
-    <string name="button1_header_main">Your chances are…</string>
     <!-- Temporary -->
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in
+    <string name="lorem" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in
         rutrum urna, vel imperdiet lorem. Donec sed quam id justo dignissim tempor. Cras molestie
         diam non metus condimentum lobortis. Pellentesque nec lorem vitae leo tristique pretium
         quis vel nisi. Quisque pellentesque id est a sagittis.</string>
@@ -36,9 +34,10 @@
     <string name="calculator_menu_events">Number of events occurred</string>
     <string name="calculator_menu_outcomes">Number of possible outcomes</string>
     <string name="random_number_generator">Random generator</string>
+    <string name="random_number_generator_button" translatable="false">Random</string>
     <!-- List of probabilities in the calculator -->
     <string name="calc_list_probabilities_header">Event probabilities</string>
-    <string name="calc_list_separator">:</string>
+    <string name="calc_list_separator" translatable="false">:</string>
     <string name="remove_item">Remove item</string>
     <!-- Random number generator -->
     <string name="generator_limit_header">Limit</string>
@@ -46,7 +45,7 @@
     <string name="hint_generated_number">Generated number</string>
 
     <!-- User Random events -->
-    <string name="hidden_percentage">\??%</string>
+    <string name="hidden_percentage" translatable="false">\??%</string>
     <string name="button_false">false</string>
     <string name="button_true">true</string>
     <string name="uRandom_event_text_question">This event is true for you, isn\'t it?</string>
@@ -61,7 +60,7 @@
     <string name="button_forgot_password">Forgot</string>
 
     <!-- Authentication dialogs for stupid users -->
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="cancel">Cancel</string>
     <string name="discard">Discard</string>
     <string name="dialog_alert_default_password_title">Continue without password?</string>
@@ -92,6 +91,37 @@
 
     <!-- Help -->
     <string name="activity_label_help">Help</string>
-    <string name="help_text">This is help</string>
+    <string name="help_text"><![CDATA[- Что это приложение позволяет сделать?\n
+- Узнать вероятность любого события в мире.\n
+\n
+- Что такое вероятность?\n
+- Вероятность - это количественная степень наступления какого-либо события.\n
+\n
+- Что такое событие?\n
+- Событие в теории вероятностей - это подмножество множества исходов случайного эксперимента.\n
+\n
+- О каком множестве событий идет речь?\n
+- Полная группа событий - это система случайных событий такая, что при проведении случайного эксперимента непременно произойдет одно и только одно из них.\n
+\n
+- Случайный эксперимент?\n
+- Это такой эксперимент, результат которого невозможно предсказать. Например, бросок монеты.\n
+\n
+- Как оценить вероятность?\n
+- Оценкой вероятности служит частота наступления события при многократном повторении эксперимента.\n
+\n
+- Примеры?\n
+- Игральный кубик: Множество событий равно 6, потому что на кубике 6 граней. Найдем вероятность такого события, как выпадение 5. Для этого нужно просто поделить количество событий на возможное количество исходов. Значит, вероятность, что на нем выпадет число 5 равна 1/6. Так же, как и для любого другого числа на кубике.\n
+\n
+- Как происходит подсчет вероятности в приложении?\n
+- Для таких простых экспериментов, как бросание кубика, в приложении есть генератор случайных чисел. Для вычисления вероятностей событий, которые встречаются в нашей жизни, но не поддаются математической оценке, работает статистика. Чтобы определить вероятность, можно много раз проводить эксперимент, что и делают пользователи приложения. Не обязательно проводить его специально, в приложении описаны события, которые происходят в жизни многих людей сами по себе.\n
+\n
+- Что отвечать в опросе: „да” или „нет”?\n
+- Если данное событие происходило или истинно - „да”, если нет - „нет”.\n
+\n
+- Я не знаю, что отвечать, что делать?\n
+- Можно посмотреть результат, не отвечая на поставленный вопрос. Копка „результат”.\n
+\n
+- Зачем отвечать на вопрос?\n
+- Отвечая на него правдиво, вы помогаете более точно подсчитать вероятность, чем делаете вклад в приложение, помогая собрать статистику. Спасибо!]]></string>
 
 </resources>

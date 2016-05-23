@@ -12,9 +12,9 @@ import com.developer.zyumbik.goclayout.R;
 
 public class FragmentRandomEventPoll extends BottomSheetDialogFragment implements View.OnClickListener {
 
-	private TextView header;
+	private TextView header, description;
 	private Button skip, positive, negative;
-	private static String headerItem;
+	private static String headerItem, descriptionItem;
 	private PollButtonClickListener listener;
 
 	public FragmentRandomEventPoll() {
@@ -28,6 +28,7 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment implement
 	public static FragmentRandomEventPoll newInstance(URandomEventListItem item) {
 		FragmentRandomEventPoll fragment = new FragmentRandomEventPoll();
 		headerItem = item.getHeader();
+		descriptionItem = item.getDescription();
 		return fragment;
 	}
 
@@ -52,11 +53,13 @@ public class FragmentRandomEventPoll extends BottomSheetDialogFragment implement
 
 		View v = inflater.inflate(R.layout.fragment_random_event_poll, container, false);
 		header = (TextView) v.findViewById(R.id.uRnd_fragment_bottom_sheet_poll_header);
+		description = (TextView) v.findViewById(R.id.uRnd_fragment_bottom_sheet_poll_description);
 		skip = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_skip);
 		positive = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_positive);
 		negative = (Button) v.findViewById(R.id.uRnd_fragment_bottom_sheet_button_negative);
 
 		header.setText(headerItem);
+		description.setText(descriptionItem);
 		skip.setOnClickListener(this);
 		positive.setOnClickListener(this);
 		negative.setOnClickListener(this);

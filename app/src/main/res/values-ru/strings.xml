@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">The Game of Chance</string>
+    <string name="action_change_password">Изменить пароль</string>
+    <string name="action_log_out">Выйти</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_suggest_adding_event">Предложить</string>
+    <string name="activity_label_help">Помощь</string>
+    <string name="add_probability_action">Добавить</string>
+    <string name="brief1">Вероятность случайных событий</string>
+    <string name="brief2">Вероятность, которую можно посчитать</string>
+    <string name="brief3">Ответы на вопросы</string>
+    <string name="button_false">нет</string>
+    <string name="button_true">да</string>
+    <string name="button_forgot_password">Забыл</string>
+    <string name="button_generate">Сгенерировать</string>
+    <string name="button_poll_skip">Результаты</string>
+    <string name="button_share">Расскажи друзьям</string>
+    <string name="button_submit">Войти</string>
+    <string name="calc_list_probabilities_header">Вероятности</string>
+    <string name="calculator_activity_name">Калькулятор вероятностей</string>
+    <string name="calculator_menu_checkbox">Независимые события</string>
+    <string name="calculator_menu_events">Количество событий</string>
+    <string name="calculator_menu_outcomes">Количество возможных исходов</string>
+    <string name="cancel">Отменить</string>
+    <string name="dialog_alert_default_password_message">Создание аккаунта без пароля - это не очень безопасно</string>
+    <string name="dialog_alert_default_password_title">Продолжить без пароля?</string>
+    <string name="dialog_anonymous_auth_message">Все функции приложения будут доступны, но вы потеряете все данные после выхода.</string>
+    <string name="dialog_anonymous_auth_title">Войти анонимно?</string>
+    <string name="dialog_authentication_checkbox_existing_user">Я зарегистрирован</string>
+    <string name="dialog_authentication_header">Вход</string>
+    <string name="dialog_authentication_input_email">Почта</string>
+    <string name="dialog_change_password_button">Изменить</string>
+    <string name="dialog_authentication_input_password">Пароль</string>
+    <string name="dialog_change_password_title">Изменить пароль</string>
+    <string name="dialog_log_out_message">Вы сможете вернуться в систему, используя свой логин и пароль. Если вы вошли анонимно — все данные о вашем аккаунте будут утеряны.</string>
+    <string name="dialog_log_out_title">Выйти?</string>
+    <string name="dialog_reset_new_password">Новый пароль</string>
+    <string name="dialog_reset_old_password">Старый пароль</string>
+    <string name="dialog_reset_password_message">Ссылка с дальнейшими инструкциями отправлена вам на почту.</string>
+    <string name="dialog_reset_password_title">Изменить пароль?</string>
+    <string name="dialog_suggest_event_title">Предложить новое событие</string>
+    <string name="discard">Отменить</string>
+    <string name="firebase_fetch_data_error_message">Произошла ошибка, попробуйте позже. \n</string>
+    <string name="fragment_suggest_hint_description">Описание</string>
+    <string name="fragment_suggest_hint_title">Заголовок</string>
+    <string name="full1">Здесь можно найти и даже поучаствовать в подсчете вероятностей случайных событий, которые постоянно происходят в нашем мире.</string>
+    <string name="full2">Этот калькулятор создан для вычисления вероятностей различных событий, когда вероятность поддается исчислению.</string>
+    <string name="full3">Как работает приложение, для чего оно, вопросы и ответы о теории вероятностей — все можно найти здесь.</string>
+    <string name="generator_limit_header">Ограничение</string>
+    <string name="hint_generated_number">Случайное число</string>
+    <string name="random_number_generator">Генератор случайных чисел</string>
+    <string name="remove_item">Удалить</string>
+    <string name="send">Отправить</string>
+    <string name="text_field_input_overflow">Слишком много букв, попробуй короче!</string>
+    <string name="title1">Статистика</string>
+    <string name="title2">Калькулятор</string>
+    <string name="title3">Помощь</string>
+    <string name="title_activity_random_events">Статистика случайных событий</string>
+    <string name="uRandom_event_text_question">Является ли это правдивым для тебя?</string>
+    <string name="user_random_events_activity_name">Случайные события</string>
+
+    <string name="help_text"><![CDATA[- Что это приложение позволяет сделать?\n
+- Узнать вероятность любого события в мире.\n
+\n
+- Что такое вероятность?\n
+- Вероятность - это количественная степень наступления какого-либо события.\n
+\n
+- Что такое событие?\n
+- Событие в теории вероятностей - это подмножество множества исходов случайного эксперимента.\n
+\n
+- О каком множестве событий идет речь?\n
+- Полная группа событий - это система случайных событий такая, что при проведении случайного эксперимента непременно произойдет одно и только одно из них.\n
+\n
+- Случайный эксперимент?\n
+- Это такой эксперимент, результат которого невозможно предсказать. Например, бросок монеты.\n
+\n
+- Как оценить вероятность?\n
+- Оценкой вероятности служит частота наступления события при многократном повторении эксперимента.\n
+\n
+- Примеры?\n
+- Игральный кубик: Множество событий равно 6, потому что на кубике 6 граней. Найдем вероятность такого события, как выпадение 5. Для этого нужно просто поделить количество событий на возможное количество исходов. Значит, вероятность, что на нем выпадет число 5 равна 1/6. Так же, как и для любого другого числа на кубике.\n
+\n
+- Как происходит подсчет вероятности в приложении?\n
+- Для таких простых экспериментов, как бросание кубика, в приложении есть генератор случайных чисел. Для вычисления вероятностей событий, которые встречаются в нашей жизни, но не поддаются математической оценке, работает статистика. Чтобы определить вероятность, можно много раз проводить эксперимент, что и делают пользователи приложения. Не обязательно проводить его специально, в приложении описаны события, которые происходят в жизни многих людей сами по себе.\n
+\n
+- Что отвечать в опросе: „да” или „нет”?\n
+- Если данное событие происходило или истинно - „да”, если нет - „нет”.\n
+\n
+- Я не знаю, что отвечать, что делать?\n
+- Можно посмотреть результат, не отвечая на поставленный вопрос. Копка „результат”.\n
+\n
+- Зачем отвечать на вопрос?\n
+- Отвечая на него правдиво, вы помогаете более точно подсчитать вероятность, чем делаете вклад в приложение, помогая собрать статистику. Спасибо!]]></string>
+
+</resources>
