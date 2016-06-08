@@ -61,7 +61,7 @@ public class FragmentSuggestEvent extends AppCompatDialogFragment{
 					case R.id.menu_save_suggestion:
 						if (title.getText().toString().length() <= 35 && description.getText().toString().length() <= 250) {
 							if (listener != null) {
-								listener.onSaveClicked(title.getText().toString(), title.getText().toString());
+								listener.onSaveClicked(title.getText().toString(), description.getText().toString());
 							}
 						} else {
 							Toast.makeText(getContext(), R.string.text_field_input_overflow, Toast.LENGTH_SHORT).show();
